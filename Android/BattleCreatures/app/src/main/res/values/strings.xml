@@ -1,0 +1,12 @@
+<!--
+  ~ Copyright (c) 2020 lululujojo123
+  ~
+  ~ strings.xml
+  ~
+  ~ created by: Andreas G.
+  ~ last edit \ by: 2020/12/22 \ Andreas G.
+  -->
+
+<resources>
+    <string name="app_name">BattleCreatures</string>
+</resources>

@@ -1,0 +1,11 @@
+/*
+ * Copyright (c) 2020 lululujojo123
+ *
+ * settings.gradle
+ *
+ * created by: Andreas G.
+ * last edit \ by: 2020/12/22 \ Andreas G.
+ */
+
+include ':app'
+rootProject.name = "BattleCreatures"
