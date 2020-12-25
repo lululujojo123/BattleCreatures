@@ -4,9 +4,11 @@
   ~ strings.xml
   ~
   ~ created by: Andreas G.
-  ~ last edit \ by: 2020/12/22 \ Andreas G.
+  ~ last edit \ by: 2020/12/23 \ Andreas G.
   -->
 
 <resources>
     <string name="app_name">BattleCreatures</string>
+    <string name="so_shield">Shield</string>
+    <string name="so_sword">Sword</string>
 </resources>

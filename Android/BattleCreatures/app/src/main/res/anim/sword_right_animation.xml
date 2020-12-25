@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2020 lululujojo123
+  ~
+  ~ sword_right_animation.xml
+  ~
+  ~ created by: Andreas G.
+  ~ last edit \ by: 2020/12/26 \ Andreas G.
+  -->
+
+<set xmlns:android="http://schemas.android.com/apk/res/android">
+    <alpha
+        android:fromAlpha="0"
+        android:toAlpha="1" />
+    <translate
+        android:fromXDelta="100%"
+        android:toXDelta="0"
+        android:fromYDelta="100%"
+        android:toYDelta="0" />
+</set>

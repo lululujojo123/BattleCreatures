@@ -5,15 +5,18 @@
   ~ colors.xml
   ~
   ~ created by: Andreas G.
-  ~ last edit \ by: 2020/12/22 \ Andreas G.
+  ~ last edit \ by: 2020/12/25 \ Andreas G.
   -->
 
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
+    <color name="yellow_200">#D6C67C</color>
+    <color name="yellow_500">#E3C64C</color>
+    <color name="yellow_700">#D3AD0D</color>
+    <color name="brown_200">#977354</color>
+    <color name="brown_700">#966336</color>
+    <color name="grey_200">#ABA8B2</color>
+    <color name="grey_500">#939396</color>
+    <color name="grey_700">#666567</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 </resources>

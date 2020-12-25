@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2020 lululujojo123
+  ~
+  ~ shield_animation.xml
+  ~
+  ~ created by: Andreas G.
+  ~ last edit \ by: 2020/12/26 \ Andreas G.
+  -->
+
+<set xmlns:android="http://schemas.android.com/apk/res/android">
+    <alpha
+        android:fromAlpha="0"
+        android:toAlpha="1" />
+    <scale
+        android:fromXScale="0"
+        android:toXScale="1"
+        android:fromYScale="0"
+        android:toYScale="1"
+        android:pivotX="50%"
+        android:pivotY="50%"/>
+</set>
