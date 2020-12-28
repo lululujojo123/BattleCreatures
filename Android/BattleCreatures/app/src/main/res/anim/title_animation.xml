@@ -13,6 +13,6 @@
         android:fromAlpha="0"
         android:toAlpha="1" />
     <translate
-        android:fromYDelta="-15%"
+        android:fromYDelta="-20%"
         android:toYDelta="0%" />
 </set>

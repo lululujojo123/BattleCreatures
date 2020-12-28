@@ -4,7 +4,7 @@
   ~ themes.xml
   ~
   ~ created by: Andreas G.
-  ~ last edit \ by: 2020/12/24 \ Andreas G.
+  ~ last edit \ by: 2020/12/26 \ Andreas G.
   -->
 
 <resources xmlns:tools="http://schemas.android.com/tools">
@@ -21,6 +21,7 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimary</item>
         <!-- Customize your theme here. -->
+        <item name="android:windowAnimationStyle">@null</item>
     </style>
     <!-- Base application theme no action bar. -->
     <style name="Theme.BattleCreatures.NoActionBar" parent="Theme.AppCompat.DayNight.NoActionBar">
@@ -35,6 +36,7 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimary</item>
         <!-- Customize your theme here. -->
+        <item name="android:windowAnimationStyle">@null</item>
     </style>
     <!-- Splash screen theme. -->
     <style name="Theme.BattleCreatures.SplashScreen" parent="Theme.AppCompat.DayNight.NoActionBar">
@@ -51,5 +53,6 @@
         <!-- Cold start background color. -->
         <item name="android:windowBackground">?attr/colorPrimary</item>
         <!-- Customize your theme here. -->
+        <item name="android:windowAnimationStyle">@null</item>
     </style>
 </resources>

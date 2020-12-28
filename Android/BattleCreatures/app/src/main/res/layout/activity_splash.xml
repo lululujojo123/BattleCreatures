@@ -5,7 +5,7 @@
   ~ activity_splash.xml
   ~
   ~ created by: Andreas G.
-  ~ last edit \ by: 2020/12/25 \ Andreas G.
+  ~ last edit \ by: 2020/12/26 \ Andreas G.
   -->
 
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -14,7 +14,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/yellow_500"
-    tools:context=".SplashActivity">
+    tools:context=".activities.SplashActivity">
 
 
     <ImageView

@@ -4,11 +4,31 @@
   ~ strings.xml
   ~
   ~ created by: Andreas G.
-  ~ last edit \ by: 2020/12/23 \ Andreas G.
+  ~ last edit \ by: 2020/12/27 \ Andreas G.
   -->
 
 <resources>
     <string name="app_name">BattleCreatures</string>
     <string name="so_shield">Shield</string>
     <string name="so_sword">Sword</string>
+    <string name="btn_sword_next_title">Next</string>
+    <string name="scan_qr_tutorial_text">
+        Scan your card\'s QR codes
+    </string>
+    <string name="scan_qr_tutorial_title">ScanQR</string>
+    <string name="start_playing_tutorial_text">
+        Play with them against the npc player
+    </string>
+    <string name="start_playing_tutorial_title">StartPlaying</string>
+    <string name="allow_permissions_tutorial_text">
+        Therefore we need access to your camera
+    </string>
+    <string name="allow_permissions_tutorial_title">AllowPermissions</string>
+    <string name="dialog_exit_application_text">Do you really want to close the application?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+
+    <!-- !!! DO NOT TRANSLATE !!! -->
+    <string name="application_shared_preferences" translatable="false">org.battlecreatures.appSharedPref</string>
+    <string name="sp_value_tutorial_completed" translatable="false">org.battlecreatures.appSharedPref.tutorialCompleted</string>
 </resources>

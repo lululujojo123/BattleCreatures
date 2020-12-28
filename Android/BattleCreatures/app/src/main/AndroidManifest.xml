@@ -5,11 +5,18 @@
   ~ AndroidManifest.xml
   ~
   ~ created by: Andreas G.
-  ~ last edit \ by: 2020/12/25 \ Andreas G.
+  ~ last edit \ by: 2020/12/27 \ Andreas G.
   -->
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.battlecreatures">
+
+    <permission
+        android:protectionLevel="signature"
+        android:name="org.battlecreatures.RUN_ACTIVITIES" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="org.battlecreatures.RUN_ACTIVITIES" />
 
     <application
         android:allowBackup="true"
@@ -18,9 +25,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.BattleCreatures.NoActionBar">
-        <activity android:name=".SplashActivity"
-            android:screenOrientation="portrait"
+        <activity
+            android:name=".activities.HomeActivity"
             android:resizeableActivity="false"
+            android:screenOrientation="portrait"
+            android:permission="org.battlecreatures.RUN_ACTIVITIES" />
+        <activity
+            android:name=".activities.TutorialActivity"
+            android:resizeableActivity="false"
+            android:screenOrientation="portrait"
+            android:permission="org.battlecreatures.RUN_ACTIVITIES" />
+        <activity
+            android:name=".activities.SplashActivity"
+            android:resizeableActivity="false"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.BattleCreatures.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

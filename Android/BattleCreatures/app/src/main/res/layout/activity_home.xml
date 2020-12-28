@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2020 lululujojo123
+  ~
+  ~ activity_home.xml
+  ~
+  ~ created by: Andreas G.
+  ~ last edit \ by: 2020/12/28 \ Andreas G.
+  -->
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.HomeActivity"
+    android:background="@color/yellow_500" >
+
+</androidx.constraintlayout.widget.ConstraintLayout>

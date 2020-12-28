@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2020 lululujojo123
+  ~
+  ~ strings.xml
+  ~
+  ~ created by: Andreas G.
+  ~ last edit \ by: 2020/12/27 \ Andreas G.
+  -->
+
+<resources>
+    <string name="app_name">BattleCreatures</string>
+    <string name="so_shield">Schild</string>
+    <string name="so_sword">Schwert</string>
+    <string name="btn_sword_next_title">Weiter</string>
+    <string name="scan_qr_tutorial_text">
+        Scanne die QR Codes deiner Karten
+    </string>
+    <string name="scan_qr_tutorial_title">ScanneQR</string>
+    <string name="start_playing_tutorial_text">
+        Spiele mit ihnen gegen den Computer
+    </string>
+    <string name="start_playing_tutorial_title">BeginneZuSpielen</string>
+    <string name="allow_permissions_tutorial_text">
+        Hierfür benötigen wir Zugriff auf deine Kamera
+    </string>
+    <string name="allow_permissions_tutorial_title">ErlaubeZugriff</string>
+    <string name="dialog_exit_application_text">Möchtest du die Anwendung verlassen?</string>
+    <string name="yes">Ja</string>
+    <string name="no">Nein</string>
+</resources>

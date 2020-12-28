@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2020 lululujojo123
+  ~
+  ~ fragment_start_playing_tutorial.xml
+  ~
+  ~ created by: Andreas G.
+  ~ last edit \ by: 2020/12/27 \ Andreas G.
+  -->
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.StartPlayingTutorialFragment"
+    android:background="@color/yellow_500">
+
+    <ImageView
+        android:id="@+id/btnSwordNext2"
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:layout_marginBottom="15dp"
+        android:clickable="true"
+        android:contentDescription="@string/btn_sword_next_title"
+        android:focusable="true"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/btn_sword" />
+
+    <TextView
+        android:id="@+id/btnSwordNextTitle2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/triforce"
+        android:text="@string/btn_sword_next_title"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/btnSwordNext2"
+        app:layout_constraintEnd_toEndOf="@+id/btnSwordNext2"
+        app:layout_constraintStart_toStartOf="@+id/btnSwordNext2"
+        app:layout_constraintTop_toTopOf="@+id/btnSwordNext2" />
+
+    <TextView
+        android:id="@+id/startPlayingText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="75dp"
+        android:fontFamily="@font/triforce"
+        android:text="@string/start_playing_tutorial_text"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/btnSwordNext2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
