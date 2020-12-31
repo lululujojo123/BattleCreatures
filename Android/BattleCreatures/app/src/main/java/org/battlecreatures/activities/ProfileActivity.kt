@@ -10,6 +10,7 @@
 package org.battlecreatures.activities
 
 import android.os.Bundle
+import android.widget.Button
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
@@ -35,5 +36,10 @@ class ProfileActivity : AppCompatActivity() {
 
         // Initializing the context by using the activity_profile.xml
         setContentView(R.layout.activity_profile)
+
+        var backButton : Button = findViewById(R.id.backButton)
+        var settingsButton : Button = findViewById(R.id.settingsButton)
+
+
     }
 }
