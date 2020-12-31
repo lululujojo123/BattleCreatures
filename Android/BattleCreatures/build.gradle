@@ -4,7 +4,7 @@
  * build.gradle
  *
  * created by: Andreas G.
- * last edit \ by: 2020/12/22 \ Andreas G.
+ * last edit \ by: 2020/12/31 \ Andreas G.
  */
 
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
@@ -12,6 +12,7 @@ buildscript {
     ext.kotlin_version = "1.4.21"
     repositories {
         google()
+        mavenCentral()
         jcenter()
     }
     dependencies {
@@ -26,6 +27,7 @@ buildscript {
 allprojects {
     repositories {
         google()
+        mavenCentral()
         jcenter()
     }
 }

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2020 lululujojo123
+  ~
+  ~ circle_shape.xml
+  ~
+  ~ created by: Andreas G.
+  ~ last edit \ by: 2020/12/28 \ Andreas G.
+  -->
+
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="ring"
+    android:innerRadiusRatio="2.5"
+    android:thickness="7.5dp"
+    android:useLevel="false">
+
+    <solid android:color="#00000000" />
+</shape>

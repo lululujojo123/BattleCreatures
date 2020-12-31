@@ -17,6 +17,8 @@
     <color name="grey_200">#ABA8B2</color>
     <color name="grey_500">#939396</color>
     <color name="grey_700">#666567</color>
+    <color name="purple_200">#777DFC</color>
+    <color name="purple_700">#3036B0</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 </resources>
