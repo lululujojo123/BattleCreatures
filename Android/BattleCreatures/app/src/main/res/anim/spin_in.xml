@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2020 lululujojo123
+  ~
+  ~ spin_in.xml
+  ~
+  ~ created by: Andreas G.
+  ~ last edit \ by: 2020/12/29 \ Andreas G.
+  -->
+
+<set xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <rotate
+        android:interpolator="@android:interpolator/decelerate_quad"
+        android:fromDegrees="160"
+        android:toDegrees="360"
+        android:pivotX="50%"
+        android:pivotY="50%"
+        android:startOffset="300"
+        android:duration="700" />
+
+    <alpha
+        android:interpolator="@android:interpolator/decelerate_quad"
+        android:fromAlpha="0"
+        android:toAlpha="1"
+        android:startOffset="500"
+        android:duration="1" />
+</set>

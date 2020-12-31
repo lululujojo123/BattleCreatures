@@ -4,7 +4,7 @@
  * HomeActivity.kt
  *
  * created by: Andreas G.
- * last edit \ by: 2020/12/28 \ Andreas G.
+ * last edit \ by: 2020/12/29 \ Andreas G.
  */
 
 package org.battlecreatures.activities
@@ -12,8 +12,18 @@ package org.battlecreatures.activities
 import android.content.DialogInterface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Button
+import android.widget.ProgressBar
+import android.widget.TextSwitcher
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
+import androidx.core.view.iterator
+import androidx.room.Room
 import org.battlecreatures.R
+import org.battlecreatures.animations.ProgressBarAnimation
+import org.battlecreatures.logics.database.BCDatabase
+import org.battlecreatures.logics.entities.Card
+import kotlin.system.exitProcess
 
 /**
  * The home activity providing the main entrance point to the game and other functions
@@ -27,6 +37,16 @@ class HomeActivity : AppCompatActivity() {
     }
 
     /**
+     * Private field buffering the last level the player had when visiting this screen
+     */
+    private var lastPlayerLevelBuffer: Int = 0
+
+    /**
+     * Private field buffering the last exp points the player had when visiting this screen
+     */
+    private var lastPlayerExpBuffer: Long = 0
+
+    /**
      * Android related onCreate method preparing all the views from xml file
      *
      * @param savedInstanceState Bundle with the saved instance state
@@ -37,6 +57,43 @@ class HomeActivity : AppCompatActivity() {
 
         // Loading the layout from xml file
         setContentView(R.layout.activity_home)
+
+        val bcDatabase = BCDatabase.getMainThreadBCDatabase(applicationContext)
+        val playerDAO = bcDatabase.playerDao()
+        val ownProfile = playerDAO.getOwnProfile()
+
+        val textSwitcher = findViewById<TextSwitcher>(R.id.currentLevelTextSwitcher)
+        textSwitcher.setCurrentText(ownProfile.getLevel().toString())
+
+        val progressBar = findViewById<ProgressBar>(R.id.playerLevelProgressBar)
+        var progressBarAnimation = ProgressBarAnimation(progressBar, progressBar.progress.toFloat(),
+                (100 - ownProfile.getExpForNextLevel().toInt()).toFloat())
+        progressBarAnimation.duration = 1000
+        progressBar.startAnimation(progressBarAnimation)
+
+        bcDatabase.close()
+
+        findViewById<Button>(R.id.testButton).setOnClickListener {
+            it.isClickable = false
+
+            val bcDatabase = BCDatabase.getMainThreadBCDatabase(applicationContext)
+            val playerDAO = bcDatabase.playerDao()
+            val ownProfile = playerDAO.getOwnProfile()
+
+            ownProfile.exp += 25
+
+            textSwitcher.setText(ownProfile.getLevel().toString())
+
+            progressBarAnimation = ProgressBarAnimation(progressBar, progressBar.progress.toFloat(),
+                    (100 - ownProfile.getExpForNextLevel().toInt()).toFloat())
+            progressBarAnimation.duration = 1000
+            progressBar.startAnimation(progressBarAnimation)
+
+            playerDAO.updatePlayer(ownProfile)
+            bcDatabase.close()
+
+            it.isClickable = true
+        }
     }
 
     /**
@@ -47,8 +104,9 @@ class HomeActivity : AppCompatActivity() {
         val dialogClickListener: DialogInterface.OnClickListener = DialogInterface.OnClickListener { _: DialogInterface, which: Int ->
             when (which) {
                 DialogInterface.BUTTON_POSITIVE -> {
-                    // Close the application
-                    finish()
+                    // Close the whole application
+                    finishAffinity()
+                    exitProcess(0)
                 }
                 DialogInterface.BUTTON_NEGATIVE -> {
                     // Do nothing

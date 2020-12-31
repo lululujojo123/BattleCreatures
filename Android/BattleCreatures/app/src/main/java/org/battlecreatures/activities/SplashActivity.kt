@@ -4,7 +4,7 @@
  * SplashActivity.kt
  *
  * created by: Andreas G.
- * last edit \ by: 2020/12/28 \ Andreas G.
+ * last edit \ by: 2020/12/31 \ Andreas G.
  */
 
 package org.battlecreatures.activities
@@ -23,6 +23,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import org.battlecreatures.R
 import android.Manifest
+import org.battlecreatures.logics.ApplicationSetup
 
 /**
  * The splash activity for startup and initializations.
@@ -56,7 +57,8 @@ class SplashActivity : AppCompatActivity() {
      * Private field storing the runnable object for application preparation
      */
     private val prepareExecRunnable: Runnable = Runnable {
-        //ToDo: Preparation tasks
+        // Do all preparations for the start of the application
+        ApplicationSetup.prepareApplication(applicationContext)
 
         // Gathering the application wide private shared preferences
         val shrdPref: SharedPreferences = getSharedPreferences(getString(R.string.application_shared_preferences), Context.MODE_PRIVATE)
@@ -153,6 +155,13 @@ class SplashActivity : AppCompatActivity() {
 
         // Changing activity state to stopped which will stop further preparation tasks in prepThread
         this.stopped = true
+    }
+
+    /**
+     * The android related onBackPressed method for denying the user to press back within the splash activity
+     */
+    override fun onBackPressed() {
+        // Just do nothing because back button should not work within the splash activity
     }
 
     /**

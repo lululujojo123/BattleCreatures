@@ -4,7 +4,7 @@
   ~ strings.xml
   ~
   ~ created by: Andreas G.
-  ~ last edit \ by: 2020/12/27 \ Andreas G.
+  ~ last edit \ by: 2020/12/30 \ Andreas G.
   -->
 
 <resources>
@@ -27,8 +27,11 @@
     <string name="dialog_exit_application_text">Do you really want to close the application?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="player_level_background">PlayerLevelBackground</string>
+    <string name="player_level_init_value">0</string>
 
     <!-- !!! DO NOT TRANSLATE !!! -->
     <string name="application_shared_preferences" translatable="false">org.battlecreatures.appSharedPref</string>
     <string name="sp_value_tutorial_completed" translatable="false">org.battlecreatures.appSharedPref.tutorialCompleted</string>
+    <string name="db_name" translatable="false">db_battlecreatures</string>
 </resources>
