@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
+<<<<<<< HEAD
+=======
 <!--
   ~ Copyright (c) 2020 lululujojo123
   ~
   ~ AndroidManifest.xml
   ~
   ~ created by: Andreas G.
-  ~ last edit \ by: 2020/12/31 \ Lara B.
+  ~ last edit \ by: 2020/12/30 \ Andreas G.
   -->
+
+>>>>>>> [Enhancement] Final SplashScreen, Room framework and retrofit2
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.battlecreatures">
 
