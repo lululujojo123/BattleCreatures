@@ -6,20 +6,40 @@
       "name_de": "Schwertkämpfer",
       "imageURL": "https://github.com",
       "imageURL_de": "https://github.com",
-      "physicalAttack": 50,
-      "physicalDefence": 40,
-      "magicalAttack": 10,
-      "magicalDefence": 20
+      "physicalAttack": 49,
+      "physicalDefence": 41,
+      "magicalAttack": 9,
+      "magicalDefence": 13
     },{
       "id": "0iJqjTM5Hf2d14dMCRuh",
-      "name": "Spearsman",
+      "name": "Spearman",
       "name_de": "Speerkämpfer",
       "imageURL": "https://github.com",
       "imageURL_de": "https://github.com",
-      "physicalAttack": 30,
-      "physicalDefence": 30,
-      "magicalAttack": 15,
-      "magicalDefence": 10
+      "physicalAttack": 32,
+      "physicalDefence": 28,
+      "magicalAttack": 16,
+      "magicalDefence": 22
+    },{
+      "id": "OQMsfFjsWQTybW6HzJyU",
+      "name": "Magician",
+      "name_de": "Magier",
+      "imageURL": "https://github.com",
+      "imageURL_de": "https://github.com",
+      "physicalAttack": 8,
+      "physicalDefence": 18,
+      "magicalAttack": 43,
+      "magicalDefence": 51
+    },{
+      "id": "YNzmjuZOwOBbVan6DrNH",
+      "name": "Flameprincess",
+      "name_de": "Flammenprinzessin",
+      "imageURL": "https://github.com",
+      "imageURL_de": "https://github.com",
+      "physicalAttack": 15,
+      "physicalDefence": 21,
+      "magicalAttack": 34,
+      "magicalDefence": 29
     }
   ]
 }
