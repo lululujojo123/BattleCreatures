@@ -1,0 +1,15 @@
+{
+  "availableCards": [
+    {
+      "id": "0iJqjTM5Hf2d14dMCRuh",
+      "name": "Spearsman",
+      "name_de": "Speerkämpfer",
+      "imageURL": "https://github.com",
+      "imageURL_de": "https://github.com",
+      "physicalAttack": 40,
+      "physicalDefence": 30,
+      "magicalAttack": 15,
+      "magicalDefence": 10
+    }
+  ]
+}
