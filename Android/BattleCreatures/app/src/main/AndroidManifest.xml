@@ -5,15 +5,14 @@
   ~ AndroidManifest.xml
   ~
   ~ created by: Andreas G.
-  ~ last edit \ by: 2020/12/30 \ Andreas G.
+  ~ last edit \ by: 2020/12/31 \ Lara B.
   -->
-
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.battlecreatures">
 
     <permission
-        android:protectionLevel="signature"
-        android:name="org.battlecreatures.RUN_ACTIVITIES" />
+        android:name="org.battlecreatures.RUN_ACTIVITIES"
+        android:protectionLevel="signature" />
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="org.battlecreatures.RUN_ACTIVITIES" />
@@ -28,14 +27,19 @@
         android:theme="@style/Theme.BattleCreatures.NoActionBar">
         <activity
             android:name=".activities.HomeActivity"
+            android:permission="org.battlecreatures.RUN_ACTIVITIES"
             android:resizeableActivity="false"
-            android:screenOrientation="portrait"
-            android:permission="org.battlecreatures.RUN_ACTIVITIES" />
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.ProfileActivity"
+            android:permission="org.battlecreatures.RUN_ACTIVITIES"
+            android:resizeableActivity="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activities.TutorialActivity"
+            android:permission="org.battlecreatures.RUN_ACTIVITIES"
             android:resizeableActivity="false"
-            android:screenOrientation="portrait"
-            android:permission="org.battlecreatures.RUN_ACTIVITIES" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activities.SplashActivity"
             android:resizeableActivity="false"
