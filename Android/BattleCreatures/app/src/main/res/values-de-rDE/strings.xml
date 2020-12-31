@@ -5,7 +5,7 @@
   ~ strings.xml
   ~
   ~ created by: Andreas G.
-  ~ last edit \ by: 2020/12/27 \ Andreas G.
+  ~ last edit \ by: 2020/12/29 \ Andreas G.
   -->
 
 <resources>
@@ -28,4 +28,6 @@
     <string name="dialog_exit_application_text">Möchtest du die Anwendung verlassen?</string>
     <string name="yes">Ja</string>
     <string name="no">Nein</string>
+    <string name="player_level_background">SpielerLevelHintergrund</string>
+    <string name="player_level_init_value">0</string>
 </resources>

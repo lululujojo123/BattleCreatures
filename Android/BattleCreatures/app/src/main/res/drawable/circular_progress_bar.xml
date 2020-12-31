@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2020 lululujojo123
+  ~
+  ~ circular_progress_bar.xml
+  ~
+  ~ created by: Andreas G.
+  ~ last edit \ by: 2020/12/28 \ Andreas G.
+  -->
+
+<rotate xmlns:android="http://schemas.android.com/apk/res/android"
+    android:fromDegrees="270"
+    android:toDegrees="270">
+    <shape
+        android:innerRadiusRatio="2.5"
+        android:shape="ring"
+        android:thickness="7.5dp"
+        android:useLevel="true">
+
+        <gradient
+            android:angle="0"
+            android:endColor="@color/purple_200"
+            android:startColor="@color/purple_200"
+            android:type="sweep"
+            android:useLevel="false" />
+    </shape>
+</rotate>
