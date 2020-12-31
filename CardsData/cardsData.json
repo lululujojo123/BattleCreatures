@@ -1,22 +1,12 @@
 {
   "availableCards": [
     {
-      "id": "iWGdBsZ38vJiGni2ttLo",
-      "name": "Swordsman",
-      "name_de": "Schwertkämpfer",
-      "imageURL": "https://github.com",
-      "imageURL_de": "https://github.com",
-      "physicalAttack": 50,
-      "physicalDefence": 40,
-      "magicalAttack": 10,
-      "magicalDefence": 20
-    },{
       "id": "0iJqjTM5Hf2d14dMCRuh",
       "name": "Spearsman",
       "name_de": "Speerkämpfer",
       "imageURL": "https://github.com",
       "imageURL_de": "https://github.com",
-      "physicalAttack": 30,
+      "physicalAttack": 40,
       "physicalDefence": 30,
       "magicalAttack": 15,
       "magicalDefence": 10
