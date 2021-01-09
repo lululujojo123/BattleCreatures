@@ -5,7 +5,7 @@
   ~ activity_home.xml
   ~
   ~ created by: Andreas G.
-  ~ last edit \ by: 2020/12/30 \ Andreas G.
+  ~ last edit \ by: 2021/01/09 \ Andreas G.
   -->
 
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -21,6 +21,8 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginTop="50dp"
+        android:clickable="true"
+        android:focusable="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -42,7 +44,7 @@
 
         <ProgressBar
             android:id="@+id/playerLevelProgressBar"
-            style="?android:attr/progressBarStyleHorizontal"
+            style="@android:style/Widget.ProgressBar.Horizontal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/exp_circle_shape"
@@ -89,13 +91,4 @@
         </TextSwitcher>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <Button
-        android:id="@+id/testButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/btn_sword_next_title"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,12 +4,13 @@
  * HomeActivity.kt
  *
  * created by: Andreas G.
- * last edit \ by: 2020/12/29 \ Andreas G.
+ * last edit \ by: 2021/01/09 \ Andreas G.
  */
 
 package org.battlecreatures.activities
 
 import android.content.DialogInterface
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -17,6 +18,7 @@ import android.widget.ProgressBar
 import android.widget.TextSwitcher
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.iterator
 import androidx.room.Room
 import org.battlecreatures.R
@@ -55,45 +57,29 @@ class HomeActivity : AppCompatActivity() {
         // Super classes onCreate method
         super.onCreate(savedInstanceState)
 
-        // Loading the layout from xml file
+        // Initializing the context by using the activity_home.xml
         setContentView(R.layout.activity_home)
 
-        val bcDatabase = BCDatabase.getMainThreadBCDatabase(applicationContext)
-        val playerDAO = bcDatabase.playerDao()
-        val ownProfile = playerDAO.getOwnProfile()
-
-        val textSwitcher = findViewById<TextSwitcher>(R.id.currentLevelTextSwitcher)
-        textSwitcher.setCurrentText(ownProfile.getLevel().toString())
-
-        val progressBar = findViewById<ProgressBar>(R.id.playerLevelProgressBar)
-        var progressBarAnimation = ProgressBarAnimation(progressBar, progressBar.progress.toFloat(),
-                (100 - ownProfile.getExpForNextLevel().toInt()).toFloat())
-        progressBarAnimation.duration = 1000
-        progressBar.startAnimation(progressBarAnimation)
-
-        bcDatabase.close()
-
-        findViewById<Button>(R.id.testButton).setOnClickListener {
-            it.isClickable = false
-
-            val bcDatabase = BCDatabase.getMainThreadBCDatabase(applicationContext)
-            val playerDAO = bcDatabase.playerDao()
-            val ownProfile = playerDAO.getOwnProfile()
-
-            ownProfile.exp += 25
-
-            textSwitcher.setText(ownProfile.getLevel().toString())
-
-            progressBarAnimation = ProgressBarAnimation(progressBar, progressBar.progress.toFloat(),
-                    (100 - ownProfile.getExpForNextLevel().toInt()).toFloat())
-            progressBarAnimation.duration = 1000
-            progressBar.startAnimation(progressBarAnimation)
-
-            playerDAO.updatePlayer(ownProfile)
-            bcDatabase.close()
-
-            it.isClickable = true
+        // Set the onClickListeners for all the navigation elements
+        findViewById<ConstraintLayout>(R.id.playerLevelGroup).setOnClickListener {
+            startActivity(Intent(this, ProfileActivity::class.java))
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
         }
+    }
+
+    /**
+     * Android related onDestroy method cleaning all the objects
+     * and starting the garbage collector
+     */
+    override fun onDestroy() {
+        // Super classes onDestroy method
+        super.onDestroy()
+
+        // Do cleanup
+        findViewById<ConstraintLayout>(R.id.playerLevelGroup).setOnClickListener(null)
+
+        // Try to garbage collect
+        Runtime.getRuntime().gc()
     }
 
     /**

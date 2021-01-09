@@ -4,7 +4,7 @@
  * PlayerDAO.kt
  *
  * created by: Andreas G.
- * last edit \ by: 2020/12/31 \ Andreas G.
+ * last edit \ by: 2021/01/04 \ Andreas G.
  */
 
 package org.battlecreatures.logics.database
@@ -30,8 +30,8 @@ interface PlayerDAO {
     fun getAllPlayers(): List<Player>
 
     @Query("SELECT * FROM tb_players WHERE id=1000")
-    fun getOwnProfile(): Player
+    fun getOwnProfile(): Player?
 
     @Query("SELECT * FROM tb_players WHERE id=:id")
-    fun getProfileByID(id: Int): Player
+    fun getProfileByID(id: Int): Player?
 }

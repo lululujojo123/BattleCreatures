@@ -4,7 +4,7 @@
  * BCDatabase.kt
  *
  * created by: Andreas G.
- * last edit \ by: 2020/12/31 \ Andreas G.
+ * last edit \ by: 2021/01/01 \ Andreas G.
  */
 
 package org.battlecreatures.logics.database
@@ -32,6 +32,11 @@ abstract class BCDatabase: RoomDatabase() {
     abstract fun cardDao(): CardDAO
 
     companion object {
+        /**
+         * Static constant with the class name for logging purposes
+         */
+        private const val TAG: String = "BCDatabase"
+
         /**
          * Method providing a usable room db object for the game database
          *
