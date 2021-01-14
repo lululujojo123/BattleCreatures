@@ -30,6 +30,8 @@
     <string name="player_level_background">PlayerLevelBackground</string>
     <string name="player_level_init_value">0</string>
 
+    <string name="edit_name_hint">Please enter a name</string>
+
     <!-- !!! DO NOT TRANSLATE !!! -->
     <string name="application_shared_preferences" translatable="false">org.battlecreatures.appSharedPref</string>
     <string name="sp_value_tutorial_completed" translatable="false">org.battlecreatures.appSharedPref.tutorialCompleted</string>

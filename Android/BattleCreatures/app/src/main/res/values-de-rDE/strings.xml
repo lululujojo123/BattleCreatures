@@ -30,4 +30,6 @@
     <string name="no">Nein</string>
     <string name="player_level_background">SpielerLevelHintergrund</string>
     <string name="player_level_init_value">0</string>
+
+    <string name="edit_name_hint">Gib einen Namen ein</string>
 </resources>
