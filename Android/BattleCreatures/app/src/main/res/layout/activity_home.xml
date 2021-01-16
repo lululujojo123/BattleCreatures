@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~ Copyright (c) 2020 lululujojo123
+  ~ Copyright (c) 2021 lululujojo123
   ~
   ~ activity_home.xml
   ~
   ~ created by: Andreas G.
-  ~ last edit \ by: 2021/01/09 \ Andreas G.
+  ~ last edit \ by: 2021/01/15 \ Andreas G.
   -->
 
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -20,12 +20,13 @@
         android:id="@+id/playerLevelGroup"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_marginTop="50dp"
         android:clickable="true"
         android:focusable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.10">
 
         <ImageView
             android:id="@+id/playerLevelBackground"
@@ -71,7 +72,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/triforce"
                 android:padding="15dp"
-                android:text="@string/player_level_init_value"
+                android:text="@null"
                 android:textAlignment="center"
                 android:textColor="@color/white"
                 android:textSize="35sp"
@@ -82,13 +83,86 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/triforce"
                 android:padding="15dp"
-                android:text="@string/player_level_init_value"
+                android:text="@null"
                 android:textAlignment="center"
                 android:textColor="@color/white"
                 android:textSize="35sp"
                 android:textStyle="bold" />
 
         </TextSwitcher>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/startGameGroup"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="75dp"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/playerLevelGroup">
+
+        <ImageView
+            android:id="@+id/startGameIcon"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:contentDescription="@string/btn_start_game_title"
+            app:layout_constraintBottom_toTopOf="@+id/startGameCaption"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/btn_start_game" />
+
+        <TextView
+            android:id="@+id/startGameCaption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/triforce"
+            android:text="@string/btn_start_game_title"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/startGameIcon" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cardDeckGroup"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="75dp"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/startGameGroup">
+
+        <ImageView
+            android:id="@+id/cardDeckIcon"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="15dp"
+            android:contentDescription="@string/btn_card_deck"
+            app:layout_constraintBottom_toBottomOf="@+id/cardDeckCaption"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/btn_cards" />
+
+        <TextView
+            android:id="@+id/cardDeckCaption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/triforce"
+            android:text="@string/btn_card_deck"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,7 +5,7 @@
   ~ strings.xml
   ~
   ~ created by: Andreas G.
-  ~ last edit \ by: 2021/01/01 \ Andreas G.
+  ~ last edit \ by: 2021/01/14 \ Andreas G.
   -->
 
 <resources>
@@ -32,6 +32,8 @@
     <string name="ok">Ok</string>
     <string name="player_level_background">SpielerLevelHintergrund</string>
     <string name="player_level_init_value">0</string>
+    <string name="btn_start_game_title">Spiel starten</string>
+    <string name="btn_card_deck">Karten</string>
 
     <!-- Variable names for different languages -->
     <string name="card_name_field_name">name_de</string>
