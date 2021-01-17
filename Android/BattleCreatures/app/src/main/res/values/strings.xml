@@ -31,6 +31,8 @@
     <string name="player_level_init_value">0</string>
 
     <string name="edit_name_hint">Please enter a name</string>
+    <string name ="needed_exp_1">You need</string>
+    <string name ="needed_exp_2">Exp to reach the next level</string>
 
     <!-- !!! DO NOT TRANSLATE !!! -->
     <string name="application_shared_preferences" translatable="false">org.battlecreatures.appSharedPref</string>

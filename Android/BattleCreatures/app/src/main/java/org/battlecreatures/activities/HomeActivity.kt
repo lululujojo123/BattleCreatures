@@ -10,19 +10,18 @@
 package org.battlecreatures.activities
 
 import android.content.DialogInterface
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextSwitcher
-import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
-import androidx.core.view.iterator
-import androidx.room.Room
+import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.Group
 import org.battlecreatures.R
 import org.battlecreatures.animations.ProgressBarAnimation
 import org.battlecreatures.logics.database.BCDatabase
-import org.battlecreatures.logics.entities.Card
 import kotlin.system.exitProcess
 
 /**
@@ -66,8 +65,10 @@ class HomeActivity : AppCompatActivity() {
         textSwitcher.setCurrentText(ownProfile.getLevel().toString())
 
         val progressBar = findViewById<ProgressBar>(R.id.playerLevelProgressBar)
-        var progressBarAnimation = ProgressBarAnimation(progressBar, progressBar.progress.toFloat(),
-                (100 - ownProfile.getExpForNextLevel().toInt()).toFloat())
+        var progressBarAnimation = ProgressBarAnimation(
+            progressBar, progressBar.progress.toFloat(),
+            (100 - ownProfile.getExpForNextLevel().toInt()).toFloat()
+        )
         progressBarAnimation.duration = 1000
         progressBar.startAnimation(progressBarAnimation)
 
@@ -84,8 +85,10 @@ class HomeActivity : AppCompatActivity() {
 
             textSwitcher.setText(ownProfile.getLevel().toString())
 
-            progressBarAnimation = ProgressBarAnimation(progressBar, progressBar.progress.toFloat(),
-                    (100 - ownProfile.getExpForNextLevel().toInt()).toFloat())
+            progressBarAnimation = ProgressBarAnimation(
+                progressBar, progressBar.progress.toFloat(),
+                (100 - ownProfile.getExpForNextLevel().toInt()).toFloat()
+            )
             progressBarAnimation.duration = 1000
             progressBar.startAnimation(progressBarAnimation)
 
@@ -93,6 +96,12 @@ class HomeActivity : AppCompatActivity() {
             bcDatabase.close()
 
             it.isClickable = true
+        }
+
+        //start Profile Activity for testing
+        findViewById<ImageView>(R.id.playerLevelBackground).setOnClickListener {
+            val myIntent = Intent(this@HomeActivity, ProfileActivity::class.java)
+            this@HomeActivity.startActivity(myIntent)
         }
     }
 
@@ -116,7 +125,11 @@ class HomeActivity : AppCompatActivity() {
 
         // Creating the alert dialog builder
         val builder: AlertDialog.Builder = AlertDialog.Builder(this)
-        builder.setMessage(getString(R.string.dialog_exit_application_text)).setPositiveButton(getString(R.string.yes), dialogClickListener)
+        builder.setMessage(getString(R.string.dialog_exit_application_text)).setPositiveButton(
+            getString(
+                R.string.yes
+            ), dialogClickListener
+        )
             .setNegativeButton(getString(R.string.no), dialogClickListener)
 
         // Creating the alert dialog object and disable the touch event while touching outside of the dialog

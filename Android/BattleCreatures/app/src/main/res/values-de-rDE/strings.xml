@@ -32,4 +32,6 @@
     <string name="player_level_init_value">0</string>
 
     <string name="edit_name_hint">Gib einen Namen ein</string>
+    <string name ="needed_exp_1">Du brauchst noch</string>
+    <string name ="needed_exp_2">Exp für den nächsten Level</string>
 </resources>
