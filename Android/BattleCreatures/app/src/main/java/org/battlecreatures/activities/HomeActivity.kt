@@ -1,10 +1,10 @@
 /*
- * Copyright (c) 2020 lululujojo123
+ * Copyright (c) 2021 lululujojo123
  *
  * HomeActivity.kt
  *
  * created by: Andreas G.
- * last edit \ by: 2021/01/14 \ Andreas G.
+ * last edit \ by: 2021/01/17 \ Andreas G.
  */
 
 package org.battlecreatures.activities
@@ -12,13 +12,13 @@ package org.battlecreatures.activities
 import android.annotation.SuppressLint
 import android.content.DialogInterface
 import android.content.Intent
+import android.content.res.Resources
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MotionEvent
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextSwitcher
 import androidx.appcompat.app.AlertDialog
@@ -87,7 +87,15 @@ class HomeActivity : AppCompatActivity() {
      */
     private lateinit var fadeAnimationCards: Animation
 
+    /**
+     * Private field storing the swipe animation object for the first background object
+     */
+    private lateinit var swipeBackgroundAnimation: Animation
 
+    /**
+     * Private field storing the swipe animation object for the second background object
+     */
+    private var swipeBackgroundAnimation2: Animation? = null
 
     /**
      * Android related onCreate method preparing all the views from xml file
@@ -101,37 +109,39 @@ class HomeActivity : AppCompatActivity() {
         // Initializing the context by using the activity_home.xml
         setContentView(R.layout.activity_home)
 
-        // Get all the required view objects
-        val playerLevelGroup: ConstraintLayout = findViewById(R.id.playerLevelGroup)
-        val startGameGroup: ConstraintLayout = findViewById(R.id.startGameGroup)
-        val cardDeckGroup: ConstraintLayout = findViewById(R.id.cardDeckGroup)
+        // Make the background images height high enough
+        findViewById<ConstraintLayout>(R.id.homeBackgroundGroup).layoutParams.height = Resources.getSystem().displayMetrics.heightPixels + 600
+        findViewById<ConstraintLayout>(R.id.homeBackgroundGroup2).layoutParams.height = Resources.getSystem().displayMetrics.heightPixels + 600
 
-        // Set the onClickListeners for all the navigation elements
-        playerLevelGroup.setOnClickListener {
+        // Set the onClickListener for player button
+        findViewById<ConstraintLayout>(R.id.playerLevelGroup).setOnClickListener {
             // Make all buttons not clickable
-            this.setClickableForAllViews(false)
+            this.setClickableAndOnTouchForAllViews(false)
 
             // Do the transition animation
             this.doTransition(0)
         }
 
-        startGameGroup.setOnClickListener {
+        // Set the onClickListener for game button
+        findViewById<ConstraintLayout>(R.id.startGameGroup).setOnClickListener {
             // Make all buttons not clickable
-            this.setClickableForAllViews(false)
+            this.setClickableAndOnTouchForAllViews(false)
 
             // Do the transition animation
             this.doTransition(1)
         }
 
-        cardDeckGroup.setOnClickListener {
+        // Set the onClickListener for card deck button
+        findViewById<ConstraintLayout>(R.id.cardDeckGroup).setOnClickListener {
             // Make all buttons not clickable
-            this.setClickableForAllViews(false)
+            this.setClickableAndOnTouchForAllViews(false)
 
             // Do the transition animation
             this.doTransition(2)
         }
 
-        this.setClickableForAllViews(false)
+        // Make all buttons not clickable while animation is pending
+        this.setClickableAndOnTouchForAllViews(false)
 
         // Init animation
         this.animateScreen()
@@ -139,12 +149,13 @@ class HomeActivity : AppCompatActivity() {
 
     /**
      * Android related onResume method refreshing the views according to the pending
-     * changes within the data set.
+     * changes within the data set and the current animation state.
      */
     override fun onResume() {
         // Super classes onResume method
         super.onResume()
 
+        // Reverting all the transitions if required
         this.revertTransition()
 
         // Refreshing the level progress bar
@@ -161,7 +172,7 @@ class HomeActivity : AppCompatActivity() {
             } while (!this.fadeAnimationCards.hasEnded())
 
             runOnUiThread {
-                this.setClickableForAllViews(true)
+                this.setClickableAndOnTouchForAllViews(true)
             }
         }.start()
 
@@ -177,11 +188,13 @@ class HomeActivity : AppCompatActivity() {
         // Super classes onDestroy method
         super.onDestroy()
 
-        // Do cleanup for onclick listeners
+        // Do cleanup for onClick listeners
         findViewById<ConstraintLayout>(R.id.playerLevelGroup).setOnClickListener(null)
+        findViewById<ConstraintLayout>(R.id.startGameGroup).setOnClickListener(null)
+        findViewById<ConstraintLayout>(R.id.cardDeckGroup).setOnClickListener(null)
 
-        // Do cleanup for ontouch listeners
-        this.setClickableForAllViews(false)
+        // Do cleanup for onTouch listeners
+        this.setClickableAndOnTouchForAllViews(false)
 
         // Try to garbage collect
         Runtime.getRuntime().gc()
@@ -191,7 +204,8 @@ class HomeActivity : AppCompatActivity() {
      * Android related onBackPressed method for overriding the normal back button functionality
      */
     override fun onBackPressed() {
-        if (this.swipeBackgroundAnimationTriangle2 != null && !this.swipeBackgroundAnimationTriangle2!!.hasEnded()) {
+        // Don't show the application close dialog while animation
+        if (this.swipeBackgroundAnimation2 != null && !this.swipeBackgroundAnimation2!!.hasEnded()) {
             return
         }
 
@@ -213,6 +227,7 @@ class HomeActivity : AppCompatActivity() {
         val builder: AlertDialog.Builder = AlertDialog.Builder(this)
         builder.setMessage(getString(R.string.dialog_exit_application_text)).setPositiveButton(getString(R.string.yes), dialogClickListener)
                 .setNegativeButton(getString(R.string.no), dialogClickListener)
+                .setCancelable(false)
 
         // Creating the alert dialog object and disable the touch event while touching outside of the dialog
         val alert: AlertDialog = builder.create()
@@ -224,7 +239,7 @@ class HomeActivity : AppCompatActivity() {
      * Private method refreshing the progress bar according to the current level progress
      */
     private fun refreshLevelProgress() {
-        // Run all the animation related stuff in a new Thread
+        // Run all the refresh level animation related stuff in a new Thread
         Thread {
             // Wait for init animation to finish
             Thread.sleep(this.levelProgressDelay)
@@ -250,7 +265,7 @@ class HomeActivity : AppCompatActivity() {
             textSwitcher.inAnimation = AnimationUtils.loadAnimation(this, R.anim.spin_in)
 
             // Make buttons not clickable
-            this.setClickableForAllViews(false)
+            this.setClickableAndOnTouchForAllViews(false)
 
             // For each level up
             for (x: Long in this.lastPlayerLevelBuffer..currentLevel) {
@@ -325,15 +340,16 @@ class HomeActivity : AppCompatActivity() {
     }
 
     /**
-     * Set the isClickable property for all the buttons in this activity
+     * Set the isClickable property and the onTouchListener for all the buttons in this activity
      *
      * @param newValue The new value for the isClickable property
      */
     @SuppressLint("ClickableViewAccessibility")
-    private fun setClickableForAllViews(newValue: Boolean) {
+    private fun setClickableAndOnTouchForAllViews(newValue: Boolean) {
         // Preparing the onTouchListener for all the views
         var onTouch: View.OnTouchListener? = null
 
+        // Only onTouch if clickable is true
         if (newValue) {
             onTouch = View.OnTouchListener { view, event ->
                 // Do the proper action for each type of action
@@ -368,9 +384,10 @@ class HomeActivity : AppCompatActivity() {
     }
 
     /**
-     * Private method preparing and starting the animation for the screen appearance
+     * Private method preparing and starting the animation for the screen initialization
      */
     private fun animateScreen() {
+        // Prepare and start the animation for the player button
         val playerLevelAnimation: Animation = AnimationUtils.loadAnimation(this,
                 R.anim.shield_animation
         )
@@ -379,6 +396,16 @@ class HomeActivity : AppCompatActivity() {
 
         findViewById<ConstraintLayout>(R.id.playerLevelGroup).startAnimation(playerLevelAnimation)
 
+        // Prepare and start the animation for the brown background shape
+        this.swipeBackgroundAnimation = AnimationUtils.loadAnimation(this,
+                R.anim.background_in_bottom_animation
+        )
+        this.swipeBackgroundAnimation.duration = 1000
+        this.swipeBackgroundAnimation.startOffset = 500
+
+        findViewById<ConstraintLayout>(R.id.homeBackgroundGroup).startAnimation(this.swipeBackgroundAnimation)
+
+        // Prepare and start the animation for the game button
         val playGameAnimation: Animation = AnimationUtils.loadAnimation(this,
                 R.anim.shield_animation
         )
@@ -387,21 +414,32 @@ class HomeActivity : AppCompatActivity() {
 
         findViewById<ConstraintLayout>(R.id.startGameGroup).startAnimation(playGameAnimation)
 
+        // Prepare and start the animation for the yellow background shape
+        this.swipeBackgroundAnimation2 = AnimationUtils.loadAnimation(this,
+                R.anim.background2_in_bottom_animation
+        )
+        this.swipeBackgroundAnimation2!!.duration = 1000
+        this.swipeBackgroundAnimation2!!.startOffset = 850
+
+        findViewById<ConstraintLayout>(R.id.homeBackgroundGroup2).startAnimation(this.swipeBackgroundAnimation2!!)
+
+        // Prepare and start the animation for the card deck button
         this.fadeAnimationCards = AnimationUtils.loadAnimation(this,
                 R.anim.shield_animation
         )
         this.fadeAnimationCards.duration = 1000
-        this.fadeAnimationCards.startOffset = 1950
+        this.fadeAnimationCards.startOffset = 1350
 
         findViewById<ConstraintLayout>(R.id.cardDeckGroup).startAnimation(this.fadeAnimationCards)
     }
 
     /**
-     * Private method doing the transition animation for switching activities
+     * Private method doing the transition animation and switching the current activity
      *
      * @param indexOfActivity The index of the activity to make a transition to
      */
     private fun doTransition(indexOfActivity: Int) {
+        // Preparing and starting the fade animation for the player button
         fadeAnimationPlayer = AnimationUtils.loadAnimation(this,
                 android.R.anim.fade_out
         )
@@ -409,6 +447,7 @@ class HomeActivity : AppCompatActivity() {
 
         findViewById<ConstraintLayout>(R.id.playerLevelGroup).startAnimation(fadeAnimationPlayer)
 
+        // Waiting to finish the animation and make button invisible
         Thread {
             do {
                 Thread.sleep(1)
@@ -419,6 +458,7 @@ class HomeActivity : AppCompatActivity() {
             }
         }.start()
 
+        // Preparing and starting the fade animation for the game button
         fadeAnimationGame = AnimationUtils.loadAnimation(this,
                 android.R.anim.fade_out
         )
@@ -427,6 +467,7 @@ class HomeActivity : AppCompatActivity() {
 
         findViewById<ConstraintLayout>(R.id.startGameGroup).startAnimation(fadeAnimationGame)
 
+        // Waiting to finish the animation and make button invisible
         Thread {
             do {
                 Thread.sleep(1)
@@ -438,6 +479,7 @@ class HomeActivity : AppCompatActivity() {
             }
         }.start()
 
+        // Preparing and starting the fade animation for the card deck button
         fadeAnimationCards = AnimationUtils.loadAnimation(this,
                 android.R.anim.fade_out
         )
@@ -446,6 +488,7 @@ class HomeActivity : AppCompatActivity() {
 
         findViewById<ConstraintLayout>(R.id.cardDeckGroup).startAnimation(fadeAnimationCards)
 
+        // Waiting to finish the animation and make button invisible
         Thread {
             do {
                 Thread.sleep(1)
@@ -456,30 +499,113 @@ class HomeActivity : AppCompatActivity() {
             }
         }.start()
 
+        // Run the appropriate animation and start the correct activity
         when(indexOfActivity) {
+            // PlayerActivity
             0 -> {
+                // Preparing and starting the swipe animation for the brown background shape
+                this.swipeBackgroundAnimation = AnimationUtils.loadAnimation(this,
+                        R.anim.background_out_bottom_animation
+                )
+                this.swipeBackgroundAnimation.duration = 1000
+                this.swipeBackgroundAnimation.startOffset = 1250
 
+                findViewById<ConstraintLayout>(R.id.homeBackgroundGroup).y += findViewById<ConstraintLayout>(R.id.homeBackgroundGroup).height * 0.6f
+                findViewById<ConstraintLayout>(R.id.homeBackgroundGroup).startAnimation(this.swipeBackgroundAnimation)
 
+                // Preparing and starting the swipe animation for the yellow background shape
+                this.swipeBackgroundAnimation2 = AnimationUtils.loadAnimation(this,
+                        R.anim.background2_out_bottom_animation
+                )
+                this.swipeBackgroundAnimation2!!.duration = 1000
+                this.swipeBackgroundAnimation2!!.startOffset = 1750
+
+                findViewById<ConstraintLayout>(R.id.homeBackgroundGroup2).y += findViewById<ConstraintLayout>(R.id.homeBackgroundGroup2).height * 0.6f
+                findViewById<ConstraintLayout>(R.id.homeBackgroundGroup2).startAnimation(this.swipeBackgroundAnimation2!!)
+
+                // Wait for finishing the animation and start the appropriate activity
                 Thread {
                     do {
                         Thread.sleep(1)
-                    } while()
+                    } while(!this.swipeBackgroundAnimation2!!.hasEnded())
 
                     runOnUiThread {
-                        // Start the profile activity with fading transition
+                        // Start the profile activity without transition
                         startActivity(Intent(this, ProfileActivity::class.java))
-                        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
                     }
                 }.start()
             }
+            // GameActivity
             1 -> {
+                // Preparing and starting the swipe animation for the brown background shape
+                this.swipeBackgroundAnimation = AnimationUtils.loadAnimation(this,
+                        R.anim.background_out_top_animation
+                )
+                this.swipeBackgroundAnimation.duration = 1000
+                this.swipeBackgroundAnimation.startOffset = 1250
 
+                findViewById<ConstraintLayout>(R.id.homeBackgroundGroup).y -= findViewById<ConstraintLayout>(R.id.homeBackgroundGroup).height * 0.3f
+                findViewById<ConstraintLayout>(R.id.homeBackgroundGroup).startAnimation(this.swipeBackgroundAnimation)
+
+                // Preparing and starting the swipe animation for the yellow background shape
+                this.swipeBackgroundAnimation2 = AnimationUtils.loadAnimation(this,
+                        R.anim.background2_out_bottom_animation
+                )
+                this.swipeBackgroundAnimation2!!.duration = 1000
+                this.swipeBackgroundAnimation2!!.startOffset = 1250
+
+                findViewById<ConstraintLayout>(R.id.homeBackgroundGroup2).y += findViewById<ConstraintLayout>(R.id.homeBackgroundGroup2).height * 0.6f
+                findViewById<ConstraintLayout>(R.id.homeBackgroundGroup2).startAnimation(this.swipeBackgroundAnimation2!!)
+
+                // Wait for animation to finish and start the appropriate activity
+                Thread {
+                    do {
+                        Thread.sleep(1)
+                    } while(!this.swipeBackgroundAnimation2!!.hasEnded())
+
+                    runOnUiThread {
+                        // Start the game activity without transition
+                        startActivity(Intent(this, ProfileActivity::class.java))
+                    }
+                }.start()
             }
+            // CardDeckActivity
             2 -> {
+                // Preparing and starting the swipe animation for the brown background shape
+                this.swipeBackgroundAnimation = AnimationUtils.loadAnimation(this,
+                        R.anim.background_out_top_animation
+                )
+                this.swipeBackgroundAnimation.duration = 750
+                this.swipeBackgroundAnimation.startOffset = 1250
 
+                findViewById<ConstraintLayout>(R.id.homeBackgroundGroup).y -= findViewById<ConstraintLayout>(R.id.homeBackgroundGroup).height * 0.3f
+                findViewById<ConstraintLayout>(R.id.homeBackgroundGroup).startAnimation(this.swipeBackgroundAnimation)
+
+                // Preparing and starting the swipe animation for the yellow background shape
+                this.swipeBackgroundAnimation2 = AnimationUtils.loadAnimation(this,
+                        R.anim.background2_out_top_animation
+                )
+                this.swipeBackgroundAnimation2!!.duration = 750
+                this.swipeBackgroundAnimation2!!.startOffset = 1750
+
+                findViewById<ConstraintLayout>(R.id.homeBackgroundGroup2).y -= findViewById<ConstraintLayout>(R.id.homeBackgroundGroup2).height * 0.6f
+                findViewById<ConstraintLayout>(R.id.homeBackgroundGroup2).startAnimation(this.swipeBackgroundAnimation2!!)
+
+                // Wait for animation to finish and start the appropriate activity
+                Thread {
+                    do {
+                        Thread.sleep(1)
+                    } while(!this.swipeBackgroundAnimation2!!.hasEnded())
+
+                    runOnUiThread {
+                        // Start the card deck activity without transition
+                        startActivity(Intent(this, ProfileActivity::class.java))
+                    }
+                }.start()
             }
         }
 
+        // Set the appropriate field in array to true
         this.transitionMade[indexOfActivity] = true
     }
 
@@ -487,8 +613,10 @@ class HomeActivity : AppCompatActivity() {
      * Private method reverting the changes made by the last transition animation
      */
     private fun revertTransition() {
+        // Variable storing what was the last animation
         var lastTransitionIndex = -1
 
+        // Iterating over the transitionMade array and storing the first positive appearance
         for (i in 0..2) {
             if (this.transitionMade[i]) {
                 lastTransitionIndex = i
@@ -497,52 +625,111 @@ class HomeActivity : AppCompatActivity() {
             }
         }
 
+        // If no animation was made till last onPause finish that method
         if (lastTransitionIndex == -1) {
             return
         }
 
+        // Prepare and execute the appropriate animation according to the last animation made
         when(lastTransitionIndex) {
+            // ProfileActivity
             0 -> {
+                // Prepare the swipe animation for the brown backround shape
+                this.swipeBackgroundAnimation = AnimationUtils.loadAnimation(this,
+                        R.anim.background_in_bottom_animation
+                )
+                this.swipeBackgroundAnimation.duration = 1000
 
+                findViewById<ConstraintLayout>(R.id.homeBackgroundGroup).y -= findViewById<ConstraintLayout>(R.id.homeBackgroundGroup).height * 0.6f
+                findViewById<ConstraintLayout>(R.id.homeBackgroundGroup).startAnimation(this.swipeBackgroundAnimation)
+
+                // Prepare the swipe animation for the yellow backround shape
+                this.swipeBackgroundAnimation2 = AnimationUtils.loadAnimation(this,
+                        R.anim.background2_in_bottom_animation
+                )
+                this.swipeBackgroundAnimation2!!.duration = 1000
+                this.swipeBackgroundAnimation2!!.startOffset = 500
+
+                findViewById<ConstraintLayout>(R.id.homeBackgroundGroup2).y -= findViewById<ConstraintLayout>(R.id.homeBackgroundGroup2).height * 0.6f
+                findViewById<ConstraintLayout>(R.id.homeBackgroundGroup2).startAnimation(this.swipeBackgroundAnimation2!!)
             }
+            // GameActivity
             1 -> {
+                // Prepare the swipe animation for the brown backround shape
+                this.swipeBackgroundAnimation = AnimationUtils.loadAnimation(this,
+                        R.anim.background_in_top_animation
+                )
+                this.swipeBackgroundAnimation.duration = 1000
 
+                findViewById<ConstraintLayout>(R.id.homeBackgroundGroup).y += findViewById<ConstraintLayout>(R.id.homeBackgroundGroup).height * 0.3f
+                findViewById<ConstraintLayout>(R.id.homeBackgroundGroup).startAnimation(this.swipeBackgroundAnimation)
+
+                // Prepare the swipe animation for the yellow backround shape
+                this.swipeBackgroundAnimation2 = AnimationUtils.loadAnimation(this,
+                        R.anim.background2_in_bottom_animation
+                )
+                this.swipeBackgroundAnimation2!!.duration = 1000
+
+                findViewById<ConstraintLayout>(R.id.homeBackgroundGroup2).y -= findViewById<ConstraintLayout>(R.id.homeBackgroundGroup2).height * 0.6f
+                findViewById<ConstraintLayout>(R.id.homeBackgroundGroup2).startAnimation(this.swipeBackgroundAnimation2!!)
             }
+            // CardDeckActivity
             2 -> {
+                // Prepare the swipe animation for the brown backround shape
+                this.swipeBackgroundAnimation = AnimationUtils.loadAnimation(this,
+                        R.anim.background_in_top_animation
+                )
+                this.swipeBackgroundAnimation.duration = 750
+                this.swipeBackgroundAnimation.startOffset = 500
 
+                findViewById<ConstraintLayout>(R.id.homeBackgroundGroup).y += findViewById<ConstraintLayout>(R.id.homeBackgroundGroup).height * 0.3f
+                findViewById<ConstraintLayout>(R.id.homeBackgroundGroup).startAnimation(this.swipeBackgroundAnimation)
+
+                // Prepare the swipe animation for the yellow backround shape
+                this.swipeBackgroundAnimation2 = AnimationUtils.loadAnimation(this,
+                        R.anim.background2_in_top_animation
+                )
+                this.swipeBackgroundAnimation2!!.duration = 750
+
+                findViewById<ConstraintLayout>(R.id.homeBackgroundGroup2).y += findViewById<ConstraintLayout>(R.id.homeBackgroundGroup2).height * 0.6f
+                findViewById<ConstraintLayout>(R.id.homeBackgroundGroup2).startAnimation(this.swipeBackgroundAnimation2!!)
             }
         }
 
+        // Prepare the fade animation for the PlayerButton
         fadeAnimationPlayer = AnimationUtils.loadAnimation(this,
                 android.R.anim.fade_in
         )
         fadeAnimationPlayer.duration = 750
-        this.levelProgressDelay = fadeAnimationPlayer.duration + fadeAnimationPlayer.startOffset - 300
+        fadeAnimationPlayer.startOffset = 1250
 
-        findViewById<ConstraintLayout>(R.id.playerLevelGroup).startAnimation(fadeAnimationPlayer)
+        // Store the information for how long should the progress refresh wait
+        this.levelProgressDelay = fadeAnimationPlayer.duration + fadeAnimationPlayer.startOffset
 
         findViewById<ConstraintLayout>(R.id.playerLevelGroup).alpha = 1f
+        findViewById<ConstraintLayout>(R.id.playerLevelGroup).startAnimation(fadeAnimationPlayer)
 
+        // Prepare the fade animation for the GameButton
         fadeAnimationGame = AnimationUtils.loadAnimation(this,
                 android.R.anim.fade_in
         )
         fadeAnimationGame.duration = 750
-        fadeAnimationGame.startOffset = 250
-
-        findViewById<ConstraintLayout>(R.id.startGameGroup).startAnimation(fadeAnimationGame)
+        fadeAnimationGame.startOffset = 1500
 
         findViewById<ConstraintLayout>(R.id.startGameGroup).alpha = 1f
+        findViewById<ConstraintLayout>(R.id.startGameGroup).startAnimation(fadeAnimationGame)
 
+        // Preapare the fade animation for the CardsButton
         fadeAnimationCards = AnimationUtils.loadAnimation(this,
                 android.R.anim.fade_in
         )
         fadeAnimationCards.duration = 750
-        fadeAnimationCards.startOffset = 500
-
-        findViewById<ConstraintLayout>(R.id.cardDeckGroup).startAnimation(fadeAnimationCards)
+        fadeAnimationCards.startOffset = 1750
 
         findViewById<ConstraintLayout>(R.id.cardDeckGroup).alpha = 1f
+        findViewById<ConstraintLayout>(R.id.cardDeckGroup).startAnimation(fadeAnimationCards)
 
+        // Reset the information that a transition was made
         this.transitionMade[lastTransitionIndex] = false
     }
 }

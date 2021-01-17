@@ -1,10 +1,10 @@
 /*
- * Copyright (c) 2020 lululujojo123
+ * Copyright (c) 2021 lululujojo123
  *
  * SplashActivity.kt
  *
  * created by: Andreas G.
- * last edit \ by: 2021/01/04 \ Andreas G.
+ * last edit \ by: 2021/01/17 \ Andreas G.
  */
 
 package org.battlecreatures.activities
@@ -78,6 +78,7 @@ class SplashActivity : AppCompatActivity() {
                 // Creating the alert dialog builder
                 val builder: AlertDialog.Builder = AlertDialog.Builder(this)
                 builder.setMessage(getString(R.string.dialog_error_api_fetching)).setPositiveButton(getString(R.string.ok), dialogClickListener)
+                        .setCancelable(false)
 
                 // Creating the alert dialog object and disable the touch event while touching outside of the dialog
                 val alert: AlertDialog = builder.create()
