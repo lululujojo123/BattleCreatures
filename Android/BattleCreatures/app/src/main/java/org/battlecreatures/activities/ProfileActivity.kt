@@ -9,7 +9,6 @@
 
 package org.battlecreatures.activities
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -20,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import org.battlecreatures.R
 import org.battlecreatures.logics.database.BCDatabase
+import org.battlecreatures.logics.entities.Player
 
 /**
  * The profile activity showing the user's profile
@@ -49,6 +49,7 @@ class ProfileActivity : AppCompatActivity() {
         val currentLevelTextView : TextView = findViewById(R.id.currentLevel)
         val nextLevelTextView : TextView = findViewById(R.id.nextLevel)
         val expProgressBar : ProgressBar = findViewById(R.id.expProgressBar)
+        val neededExpTextView : TextView = findViewById(R.id.neededExp)
 
         val bcDatabase = BCDatabase.getMainThreadBCDatabase(applicationContext)
         val playerDAO = bcDatabase.playerDao()
@@ -58,6 +59,7 @@ class ProfileActivity : AppCompatActivity() {
         currentLevelTextView.text = ownProfile.getLevel().toString()
         nextLevelTextView.text = (ownProfile.getLevel() + 1).toString()
         expProgressBar.progress = ownProfile.getExpProgress().toInt()
+        neededExpTextView.text = ownProfile.getExpForNextLevel().toString()
 
         changeNameButton.setOnClickListener {
             if (playerNameTextView.isVisible) {
@@ -66,9 +68,11 @@ class ProfileActivity : AppCompatActivity() {
             } else {
                 if (playerNameEditText.length() > 0) {
                     ownProfile.name = playerNameEditText.text.toString()
-                    playerNameEditText.visibility = View.INVISIBLE
-                    playerNameTextView.visibility = View.VISIBLE
+                    playerDAO.updatePlayer(Player(ownProfile.id, ownProfile.exp, ownProfile.name))
+                    playerNameTextView.text = ownProfile.name
                 }
+                playerNameEditText.visibility = View.INVISIBLE
+                playerNameTextView.visibility = View.VISIBLE
             }
         }
 
