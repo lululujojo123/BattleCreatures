@@ -33,6 +33,7 @@
     <string name="edit_name_hint">Please enter a name</string>
     <string name ="needed_exp_1">You need</string>
     <string name ="needed_exp_2">Exp to reach the next level</string>
+    <string name ="wrong_name_length">Please enter a name with 1 to 10 characters!</string>
 
     <!-- !!! DO NOT TRANSLATE !!! -->
     <string name="application_shared_preferences" translatable="false">org.battlecreatures.appSharedPref</string>
