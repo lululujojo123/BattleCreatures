@@ -16,36 +16,16 @@
     tools:context=".activities.ProfileActivity"
     android:background="@color/yellow_500" >
 
-    <Button
-        android:id="@+id/backButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:text="Back"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/changeNameButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="88dp"
-        android:layout_marginEnd="5dp"
-        android:text="change name"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <EditText
         android:id="@+id/playerNameEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="88dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="120dp"
         android:ems="10"
-        android:inputType="textPersonName"
         android:hint="@string/edit_name_hint"
+        android:inputType="textPersonName"
         android:visibility="invisible"
-        app:layout_constraintEnd_toStartOf="@+id/changeNameButton"
-        app:layout_constraintHorizontal_bias="0.263"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -63,10 +43,10 @@
         android:id="@+id/playerNameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:text="Name"
-        android:textSize="20sp"
+        android:layout_marginTop="120dp"
         android:fontFamily="@font/triforce"
+        android:text="Name"
+        android:textSize="40sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -75,10 +55,10 @@
         android:id="@+id/currentLevel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:text="TextView"
-        android:textSize="20sp"
+        android:layout_marginTop="30dp"
         android:fontFamily="@font/triforce"
+        android:text="TextView"
+        android:textSize="30sp"
         app:layout_constraintEnd_toStartOf="@+id/expProgressBar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/playerNameTextView" />
@@ -87,10 +67,10 @@
         android:id="@+id/nextLevel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:text="TextView"
-        android:textSize="20sp"
+        android:layout_marginTop="30dp"
         android:fontFamily="@font/triforce"
+        android:text="TextView"
+        android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/expProgressBar"
         app:layout_constraintTop_toBottomOf="@+id/playerNameTextView" />
@@ -99,9 +79,9 @@
         android:id="@+id/neededExp1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="76dp"
         android:layout_marginTop="20dp"
         android:text="@string/needed_exp_1"
-        app:layout_constraintEnd_toStartOf="@+id/neededExp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/expProgressBar" />
 
@@ -112,6 +92,7 @@
         android:layout_marginTop="20dp"
         android:text="00"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.372"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/expProgressBar" />
 
@@ -122,7 +103,41 @@
         android:layout_marginTop="20dp"
         android:text="@string/needed_exp_2"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.117"
         app:layout_constraintStart_toEndOf="@+id/neededExp"
         app:layout_constraintTop_toBottomOf="@+id/expProgressBar" />
+
+    <ImageView
+        android:id="@+id/changeNameButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="120dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/playerNameTextView"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/ic_menu_edit" />
+
+    <ImageView
+        android:id="@+id/backButton"
+        android:layout_width="153dp"
+        android:layout_height="74dp"
+        android:layout_marginStart="5dp"
+        android:rotation="180"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/btn_sword" />
+
+    <ImageView
+        android:id="@+id/confirmNameButton"
+        android:layout_width="58dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="110dp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/playerNameEditText"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="?android:attr/textCheckMark" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

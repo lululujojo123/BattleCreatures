@@ -11,10 +11,7 @@ package org.battlecreatures.activities
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ProgressBar
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import org.battlecreatures.R
@@ -42,8 +39,9 @@ class ProfileActivity : AppCompatActivity() {
         // Initializing the context by using the activity_profile.xml
         setContentView(R.layout.activity_profile)
 
-        val backButton : Button = findViewById(R.id.backButton)
-        val changeNameButton : Button = findViewById(R.id.changeNameButton)
+        val backButton : ImageView = findViewById(R.id.backButton)
+        val changeNameButton : ImageView = findViewById(R.id.changeNameButton)
+        val confirmNameButton : ImageView = findViewById(R.id.confirmNameButton)
         val playerNameTextView : TextView = findViewById(R.id.playerNameTextView)
         val playerNameEditText : EditText = findViewById(R.id.playerNameEditText)
         val currentLevelTextView : TextView = findViewById(R.id.currentLevel)
@@ -62,19 +60,28 @@ class ProfileActivity : AppCompatActivity() {
         neededExpTextView.text = ownProfile.getExpForNextLevel().toString()
 
         changeNameButton.setOnClickListener {
-            if (playerNameTextView.isVisible) {
-                playerNameTextView.visibility = View.INVISIBLE
-                playerNameEditText.visibility = View.VISIBLE
-            } else {
-                if (playerNameEditText.length() > 0) {
-                    ownProfile.name = playerNameEditText.text.toString()
-                    playerDAO.updatePlayer(Player(ownProfile.id, ownProfile.exp, ownProfile.name))
-                    playerNameTextView.text = ownProfile.name
-                }
-                playerNameEditText.visibility = View.INVISIBLE
-                playerNameTextView.visibility = View.VISIBLE
-            }
+            changeNameButton.isClickable = false
+            playerNameTextView.visibility = View.INVISIBLE
+            changeNameButton.visibility = View.INVISIBLE
+            playerNameEditText.visibility = View.VISIBLE
+            confirmNameButton.visibility = View.VISIBLE
+            confirmNameButton.isClickable = true
         }
+
+        confirmNameButton.setOnClickListener {
+            confirmNameButton.isClickable = false
+            if (playerNameEditText.length() > 0) {
+                ownProfile.name = playerNameEditText.text.toString()
+                playerDAO.updatePlayer(Player(ownProfile.id, ownProfile.exp, ownProfile.name))
+                playerNameTextView.text = ownProfile.name
+            }
+            playerNameEditText.visibility = View.INVISIBLE
+            confirmNameButton.visibility = View.INVISIBLE
+            changeNameButton.visibility = View.VISIBLE
+            playerNameTextView.visibility = View.VISIBLE
+            changeNameButton.isClickable = true
+        }
+
 
         backButton.setOnClickListener {
             onBackPressed()
