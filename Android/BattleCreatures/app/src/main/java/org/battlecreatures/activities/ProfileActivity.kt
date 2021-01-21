@@ -70,16 +70,24 @@ class ProfileActivity : AppCompatActivity() {
 
         confirmNameButton.setOnClickListener {
             confirmNameButton.isClickable = false
-            if (playerNameEditText.length() > 0) {
+
+            //The name length has to be between 1 and 10
+            if (playerNameEditText.length() in 1..10) {
                 ownProfile.name = playerNameEditText.text.toString()
                 playerDAO.updatePlayer(Player(ownProfile.id, ownProfile.exp, ownProfile.name))
                 playerNameTextView.text = ownProfile.name
+
+                playerNameEditText.visibility = View.INVISIBLE
+                confirmNameButton.visibility = View.INVISIBLE
+                changeNameButton.visibility = View.VISIBLE
+                playerNameTextView.visibility = View.VISIBLE
+                changeNameButton.isClickable = true
+            } else {
+                //name is too short or too long
+                Toast.makeText(this, getString(R.string.wrong_name_length), Toast.LENGTH_SHORT).show()
+                confirmNameButton.isClickable = true
             }
-            playerNameEditText.visibility = View.INVISIBLE
-            confirmNameButton.visibility = View.INVISIBLE
-            changeNameButton.visibility = View.VISIBLE
-            playerNameTextView.visibility = View.VISIBLE
-            changeNameButton.isClickable = true
+
         }
 
 
