@@ -5,7 +5,7 @@
   ~  activity_profile.xml
   ~
   ~  created by: Lara B.
-  ~  last edit \ by: 2020/12/30 \ Lara B.
+  ~  last edit \ by: 2021/01/23 \ Lara B.
   -->
 
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -15,6 +15,39 @@
     android:layout_height="match_parent"
     tools:context=".activities.ProfileActivity"
     android:background="@color/yellow_500" >
+
+    <ImageView
+        android:id="@+id/backButton"
+        android:layout_width="153dp"
+        android:layout_height="74dp"
+        android:layout_marginStart="5dp"
+        android:rotation="180"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/btn_sword" />
+
+    <TextView
+        android:id="@+id/playerNameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="120dp"
+        android:fontFamily="@font/triforce"
+        android:textSize="40sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/changeNameButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="130dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/playerNameTextView"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/ic_menu_edit" />
 
     <EditText
         android:id="@+id/playerNameEditText"
@@ -29,26 +62,28 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageView
+        android:id="@+id/confirmNameButton"
+        android:layout_width="58dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="110dp"
+        android:layout_marginEnd="20dp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/playerNameEditText"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="?android:attr/textCheckMark" />
+
     <ProgressBar
         android:id="@+id/expProgressBar"
-        style="?android:attr/progressBarStyleHorizontal"
+        style="@android:style/Widget.Holo.Light.ProgressBar.Horizontal"
+        android:progressTint="@color/brown_700"
         android:layout_width="207dp"
         android:layout_height="18dp"
         android:layout_marginTop="40dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/playerNameTextView" />
-
-    <TextView
-        android:id="@+id/playerNameTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="120dp"
-        android:fontFamily="@font/triforce"
-        android:textSize="40sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/currentLevel"
@@ -103,39 +138,5 @@
         app:layout_constraintHorizontal_bias="0.094"
         app:layout_constraintStart_toEndOf="@+id/neededExp"
         app:layout_constraintTop_toBottomOf="@+id/expProgressBar" />
-
-    <ImageView
-        android:id="@+id/changeNameButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="130dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/playerNameTextView"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_edit" />
-
-    <ImageView
-        android:id="@+id/backButton"
-        android:layout_width="153dp"
-        android:layout_height="74dp"
-        android:layout_marginStart="5dp"
-        android:rotation="180"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/btn_sword" />
-
-    <ImageView
-        android:id="@+id/confirmNameButton"
-        android:layout_width="58dp"
-        android:layout_height="55dp"
-        android:layout_marginTop="110dp"
-        android:layout_marginEnd="20dp"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/playerNameEditText"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="?android:attr/textCheckMark" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

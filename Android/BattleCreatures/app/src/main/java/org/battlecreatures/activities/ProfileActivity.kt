@@ -4,7 +4,7 @@
  *  ProfileActivity.kt
  *
  *  created by: Lara B.
- *  last edit \ by: 2020/12/30 \ Lara B.
+ *  last edit \ by: 2021/01/27 \ Lara B.
  */
 
 package org.battlecreatures.activities
@@ -46,24 +46,17 @@ class ProfileActivity : AppCompatActivity() {
         val confirmNameButton : ImageView = findViewById(R.id.confirmNameButton)
         val playerNameTextView : TextView = findViewById(R.id.playerNameTextView)
         val playerNameEditText : EditText = findViewById(R.id.playerNameEditText)
-        val currentLevelTextView : TextView = findViewById(R.id.currentLevel)
-        val nextLevelTextView : TextView = findViewById(R.id.nextLevel)
-        val expProgressBar : ProgressBar = findViewById(R.id.expProgressBar)
-        val neededExpTextView : TextView = findViewById(R.id.neededExp)
 
         val bcDatabase = BCDatabase.getMainThreadBCDatabase(applicationContext)
         val playerDAO = bcDatabase.playerDao()
-        var ownProfile = playerDAO.getOwnProfile()
+        val ownProfile = playerDAO.getOwnProfile()
 
-        playerNameTextView.text = ownProfile.name
-        currentLevelTextView.text = ownProfile.getLevel().toString()
-        nextLevelTextView.text = (ownProfile.getLevel() + 1).toString()
-        neededExpTextView.text = ownProfile.getExpForNextLevel().toString()
-        expProgressBar.progress = 0
-
-        //animate the screen elements
+        // Set the views and animate them
+        setTextViews()
         animateScreen()
+        animateProgressBar()
 
+        // Set the onClickListener for the change name button
         changeNameButton.setOnClickListener {
             changeNameButton.isClickable = false
             playerNameTextView.visibility = View.INVISIBLE
@@ -73,10 +66,11 @@ class ProfileActivity : AppCompatActivity() {
             confirmNameButton.isClickable = true
         }
 
+        // Set the onClickListener for the confirm name button
         confirmNameButton.setOnClickListener {
             confirmNameButton.isClickable = false
 
-            //The name length has to be between 1 and 10
+            // The name length has to be between 1 and 10
             if (playerNameEditText.length() in 1..10) {
                 ownProfile.name = playerNameEditText.text.toString()
                 playerDAO.updatePlayer(Player(ownProfile.id, ownProfile.exp, ownProfile.name))
@@ -88,17 +82,36 @@ class ProfileActivity : AppCompatActivity() {
                 playerNameTextView.visibility = View.VISIBLE
                 changeNameButton.isClickable = true
             } else {
-                //name is too short or too long
+                // name is too short or too long
                 Toast.makeText(this, getString(R.string.wrong_name_length), Toast.LENGTH_LONG).show()
                 confirmNameButton.isClickable = true
             }
-
         }
 
+        // Set the onClickListener for the back button
         backButton.setOnClickListener {
-            onBackPressed() //back to home activity
+            // back to home activity
+            onBackPressed()
         }
+    }
 
+    /**
+     * Private method preparing and setting the text views
+     */
+    private fun setTextViews() {
+        val playerNameTextView : TextView = findViewById(R.id.playerNameTextView)
+        val currentLevelTextView : TextView = findViewById(R.id.currentLevel)
+        val nextLevelTextView : TextView = findViewById(R.id.nextLevel)
+        val neededExpTextView : TextView = findViewById(R.id.neededExp)
+
+        val bcDatabase = BCDatabase.getMainThreadBCDatabase(applicationContext)
+        val playerDAO = bcDatabase.playerDao()
+        val ownProfile = playerDAO.getOwnProfile()
+
+        playerNameTextView.text = ownProfile.name
+        currentLevelTextView.text = ownProfile.getLevel().toString()
+        nextLevelTextView.text = (ownProfile.getLevel() + 1).toString()
+        neededExpTextView.text = ownProfile.getExpForNextLevel().toString()
     }
 
     /**
@@ -110,37 +123,44 @@ class ProfileActivity : AppCompatActivity() {
         val playerNameTextView : TextView = findViewById(R.id.playerNameTextView)
         val currentLevelTextView : TextView = findViewById(R.id.currentLevel)
         val nextLevelTextView : TextView = findViewById(R.id.nextLevel)
-        val expProgressBar : ProgressBar = findViewById(R.id.expProgressBar)
         val neededExpTextView : TextView = findViewById(R.id.neededExp)
-
-        val bcDatabase = BCDatabase.getMainThreadBCDatabase(applicationContext)
-        val playerDAO = bcDatabase.playerDao()
-        var ownProfile = playerDAO.getOwnProfile()
-
-        playerNameTextView.text = ownProfile.name
-        currentLevelTextView.text = ownProfile.getLevel().toString()
-        nextLevelTextView.text = (ownProfile.getLevel() + 1).toString()
-        neededExpTextView.text = ownProfile.getExpForNextLevel().toString()
-        expProgressBar.progress = 0
+        val neededExpTextView1 : TextView = findViewById(R.id.neededExp1)
+        val neededExpTextView2 : TextView = findViewById(R.id.neededExp2)
 
         // Prepare the screen animation
         val screenAnimation: Animation = AnimationUtils.loadAnimation(this,
             R.anim.shield_animation
         )
         screenAnimation.duration = 1000
-        //backButtonAnimation.startOffset = 950
 
+        // Start the animation
         backButton.startAnimation(screenAnimation)
         changeNameButton.startAnimation(screenAnimation)
         playerNameTextView.startAnimation(screenAnimation)
         currentLevelTextView.startAnimation(screenAnimation)
         nextLevelTextView.startAnimation(screenAnimation)
-        expProgressBar.startAnimation(screenAnimation)
+        neededExpTextView.startAnimation(screenAnimation)
+        neededExpTextView1.startAnimation(screenAnimation)
+        neededExpTextView2.startAnimation(screenAnimation)
+    }
+
+    /**
+     * Private method preparing and starting the animation for the progress bar
+     */
+    private fun animateProgressBar() {
+        val expProgressBar : ProgressBar = findViewById(R.id.expProgressBar)
+        val bcDatabase = BCDatabase.getMainThreadBCDatabase(applicationContext)
+        val playerDAO = bcDatabase.playerDao()
+        val ownProfile = playerDAO.getOwnProfile()
 
         // Prepare and start the progress bar animation
+        expProgressBar.progress = 0
         expProgressBar.animation = ProgressBarAnimation(expProgressBar, expProgressBar.progress.toFloat(), ownProfile.getExpProgress().toFloat())
         expProgressBar.animation.duration = 1000
         expProgressBar.animation.setInterpolator(this, android.R.interpolator.decelerate_cubic)
         expProgressBar.animate()
+
+        // Wait for progress bar animation to finish
+        Thread.sleep(expProgressBar.animation.duration)
     }
 }
