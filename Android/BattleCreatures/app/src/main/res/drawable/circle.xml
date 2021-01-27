@@ -5,12 +5,11 @@
   ~ circle.xml
   ~
   ~ created by: Andreas G.
-  ~ last edit \ by: 2020/12/28 \ Andreas G.
+  ~ last edit \ by: 2021/01/14 \ Andreas G.
   -->
 
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="oval">
 
     <solid android:color="@color/brown_200" />
-
 </shape>

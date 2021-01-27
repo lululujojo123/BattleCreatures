@@ -1,10 +1,10 @@
 /*
- * Copyright (c) 2020 lululujojo123
+ * Copyright (c) 2021 lululujojo123
  *
  * SplashActivity.kt
  *
  * created by: Andreas G.
- * last edit \ by: 2020/12/31 \ Andreas G.
+ * last edit \ by: 2021/01/17 \ Andreas G.
  */
 
 package org.battlecreatures.activities
@@ -23,6 +23,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import org.battlecreatures.R
 import android.Manifest
+import android.content.DialogInterface
+import androidx.appcompat.app.AlertDialog
 import org.battlecreatures.logics.ApplicationSetup
 
 /**
@@ -58,13 +60,38 @@ class SplashActivity : AppCompatActivity() {
      */
     private val prepareExecRunnable: Runnable = Runnable {
         // Do all preparations for the start of the application
-        ApplicationSetup.prepareApplication(applicationContext)
+        var preparationFinished = ApplicationSetup.prepareApplication(applicationContext)
+
+        if (!preparationFinished) {
+            // Inform user if not successful
+            runOnUiThread {
+                // Creating the onClickListener for the AlertDialog
+                val dialogClickListener: DialogInterface.OnClickListener = DialogInterface.OnClickListener { _: DialogInterface, which: Int ->
+                    when (which) {
+                        DialogInterface.BUTTON_POSITIVE -> {
+                            // Mark the preparation as "finished"
+                            preparationFinished = true
+                        }
+                    }
+                }
+
+                // Creating the alert dialog builder
+                val builder: AlertDialog.Builder = AlertDialog.Builder(this)
+                builder.setMessage(getString(R.string.dialog_error_api_fetching)).setPositiveButton(getString(R.string.ok), dialogClickListener)
+                        .setCancelable(false)
+
+                // Creating the alert dialog object and disable the touch event while touching outside of the dialog
+                val alert: AlertDialog = builder.create()
+                alert.setCanceledOnTouchOutside(false)
+                alert.show()
+            }
+        }
 
         // Gathering the application wide private shared preferences
         val shrdPref: SharedPreferences = getSharedPreferences(getString(R.string.application_shared_preferences), Context.MODE_PRIVATE)
 
-        // Waiting for animation to finish if preparation was faster
-        while (!this.titleAnimation.hasEnded() || swordClashPlayer.isPlaying()) {
+        // Waiting for animation to finish if preparation was faster or wait for response to AlertDialog
+        while (!this.titleAnimation.hasEnded() || swordClashPlayer.isPlaying() || !preparationFinished) {
             Thread.sleep(100)
             if (this.stopped) {
                 // Jump out of the loop if activity goes to sleep
@@ -155,6 +182,18 @@ class SplashActivity : AppCompatActivity() {
 
         // Changing activity state to stopped which will stop further preparation tasks in prepThread
         this.stopped = true
+    }
+
+    /**
+     * Android related onDestroy method cleaning all the objects
+     * and starting the garbage collector
+     */
+    override fun onDestroy() {
+        // Super classes onDestroy method
+        super.onDestroy()
+
+        // Let's try to garbage collect
+        Runtime.getRuntime().gc()
     }
 
     /**

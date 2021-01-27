@@ -4,13 +4,15 @@
  * Card.kt
  *
  * created by: Andreas G.
- * last edit \ by: 2020/12/31 \ Andreas G.
+ * last edit \ by: 2021/01/04 \ Andreas G.
  */
 
 package org.battlecreatures.logics.entities
 
+import android.content.Context
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import org.battlecreatures.R
 
 @Entity(tableName = "tb_cards")
 data class Card(
@@ -32,6 +34,47 @@ data class Card(
     val magicalDefence: Short,
     var playerOwns: Boolean = false
 ) {
+    companion object{
+        /**
+         * Static constant with the class name for logging purposes
+         */
+        private const val TAG: String = "Card"
+    }
+
+    /**
+     * Get the card name in the correct language
+     *
+     * @param context The context to be used for the string resource access
+     * @return The value for the card name
+     */
+    fun getCardName(context: Context): String {
+        // Get the field name for the current language
+        val fieldName = context.getString(R.string.card_name_field_name)
+
+        // Get the field object by field's name
+        val field = this::class.java.declaredFields.find { it.name == fieldName }
+
+        // Return the value within this field for the current object
+        return field?.get(this) as String
+    }
+
+    /**
+     * Get the card's image URL for the correct language
+     *
+     * @param context The context to be used for the string resource access
+     * @return The value for the card's image URL
+     */
+    fun getCardImageURL(context: Context): String {
+        // Get the field name for the current language
+        val fieldName = context.getString(R.string.card_image_url_field_name)
+
+        // Get the field object by field's name
+        val field = this::class.java.declaredFields.find { it.name == fieldName }
+
+        // Return the value within this field for the current object
+        return field?.get(this) as String
+    }
+
     /**
      * Method calculating the hash code for the current object with all important properties
      *

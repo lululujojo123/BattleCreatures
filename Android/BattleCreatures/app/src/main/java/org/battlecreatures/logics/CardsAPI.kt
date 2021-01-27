@@ -4,7 +4,7 @@
  * CardsAPI.kt
  *
  * created by: Andreas G.
- * last edit \ by: 2020/12/31 \ Andreas G.
+ * last edit \ by: 2021/01/04 \ Andreas G.
  */
 
 package org.battlecreatures.logics

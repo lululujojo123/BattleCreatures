@@ -4,7 +4,7 @@
  * ApplicationSetup.kt
  *
  * created by: Andreas G.
- * last edit \ by: 2020/12/31 \ Andreas G.
+ * last edit \ by: 2021/01/04 \ Andreas G.
  */
 
 package org.battlecreatures.logics
@@ -25,15 +25,20 @@ import retrofit2.converter.gson.GsonConverterFactory
  * Static class providing the function which prepares the application launch
  */
 object ApplicationSetup {
+    /**
+     * Static constant with the class name for logging purposes
+     */
+    private const val TAG: String = "ApplicationSetup"
 
     /**
      * Public method executing all the preparation steps
      *
      * @param context The context to be used for all the database work
+     * @return Whether preparations were successful or not
      */
-    fun prepareApplication(context: Context) {
+    fun prepareApplication(context: Context): Boolean {
         preparePlayerTable(context)
-        prepareCardsTable(context)
+        return prepareCardsTable(context)
     }
 
     /**
@@ -42,13 +47,16 @@ object ApplicationSetup {
      * @param context The context to be used for the database access
      */
     private fun preparePlayerTable(context: Context) {
+        // Creating all required objects
         val bcDatabase = BCDatabase.getBCDatabase(context)
         val playerDAO = bcDatabase.playerDao()
 
+        // If the own profile is not existing create a standard one
         if (playerDAO.getOwnProfile() == null) {
             playerDAO.addPlayer(Player(1000))
         }
 
+        // Close the database connection
         bcDatabase.close()
     }
 
@@ -56,8 +64,9 @@ object ApplicationSetup {
      * Method checking and synchronizing the tb_cards table
      *
      * @param context The context to be used for the database access
+     * @return Whether preparation was successful or not
      */
-    private fun prepareCardsTable(context: Context) {
+    private fun prepareCardsTable(context: Context): Boolean {
         // Creating the required overall objects for the preparation
         val bcDatabase = BCDatabase.getBCDatabase(context)
         val cardDAO = bcDatabase.cardDao()
@@ -87,15 +96,15 @@ object ApplicationSetup {
             }
 
             override fun onFailure(call: Call<CardsAPIRequestResponse>, t: Throwable) {
-                //ToDo: Something went wrong. Do some error handling
+                // ToDo: Do proper error handling
             }
         })
 
         // Preparing a loop counter
-        var loopCounter: Int = 0
+        var loopCounter = 0
 
-        // Waiting for the call to be finished or for 20 second
-        while (apiCardsList == null && loopCounter++ < 201) {
+        // Waiting for the call to be finished or for 10 seconds
+        while (apiCardsList == null && loopCounter++ < 101) {
             Thread.sleep(100)
         }
 
@@ -108,13 +117,20 @@ object ApplicationSetup {
 
                 // Check if there is an entry in the local DB
                 if (card != null) {
+                    // Checking if something has changed for that card in the API
                     if (card != it) {
+                        // Storing the playerOwns value in the new card object
                         it.playerOwns = card.playerOwns
 
+                        // Delete the old card object
                         cardDAO.deleteCard(card)
+
+                        // Wait for finishing the DB query
                         while (cardDAO.getCardByID(it.id) != null) {
                             Thread.sleep(100)
                         }
+
+                        // Write the new card object to DB
                         cardDAO.addCard(it)
                     }
                 } else {
@@ -123,33 +139,31 @@ object ApplicationSetup {
                 }
             }
 
+            // Get all the cards from the local DB
             val cards = cardDAO.getAllCards()
 
+            // Go through all the cards objects
             cards.forEach {
+                // Buffering the current card object
                 val currentCard = it
 
+                // If card not available in the API any more, delete the card
                 if (apiCardsList!!.find { it.id == currentCard.id } == null) {
                     cardDAO.deleteCard(currentCard)
                 }
             }
         } else {
-            //ToDo: No result from API. Inform the user
+            // Close the database connection
+            bcDatabase.close()
+
+            // Not successful
+            return false
         }
 
+        // Close the database connection
         bcDatabase.close()
 
-
-//        val bcDatabase = BCDatabase.getBCDatabase()
-//        val cardDAO = bcDatabase.cardDao()
-//
-//        val cards = cardDAO.getAllCards()
-//
-//        cards.forEach {
-//            var resultField = it::class.java.declaredFields.find {
-//                it.name == context.getString(R.string.property_name_card_name)
-//            }
-//
-//            Textbox.text = resultField.get(it)
-//        }
+        // Successful
+        return true
     }
 }

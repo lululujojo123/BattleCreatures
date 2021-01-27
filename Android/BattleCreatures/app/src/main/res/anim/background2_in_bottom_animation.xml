@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2021 lululujojo123
+  ~
+  ~ background2_in_bottom_animation.xml
+  ~
+  ~ created by: Andreas G.
+  ~ last edit \ by: 2021/01/17 \ Andreas G.
+  -->
+
+<set xmlns:android="http://schemas.android.com/apk/res/android">
+    <translate
+        android:fromYDelta="60%"
+        android:toYDelta="0%" />
+</set>
