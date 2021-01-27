@@ -4,7 +4,7 @@
  * HomeActivity.kt
  *
  * created by: Andreas G.
- * last edit \ by: 2021/01/17 \ Andreas G.
+ * last edit \ by: 2021/01/27 \ Andreas G.
  */
 
 package org.battlecreatures.activities
@@ -336,6 +336,9 @@ class HomeActivity : AppCompatActivity() {
             // Update the buffer
             lastPlayerExpProgressBuffer = currentExpProgress
             lastPlayerLevelBuffer = currentLevel
+
+            // Make buttons clickable again
+            this.setClickableAndOnTouchForAllViews(true)
         }.start()
     }
 
@@ -532,6 +535,9 @@ class HomeActivity : AppCompatActivity() {
                     runOnUiThread {
                         // Start the profile activity without transition
                         startActivity(Intent(this, ProfileActivity::class.java))
+
+                        // Set the appropriate field in array to true
+                        this.transitionMade[indexOfActivity] = true
                     }
                 }.start()
             }
@@ -566,6 +572,9 @@ class HomeActivity : AppCompatActivity() {
                     runOnUiThread {
                         // Start the game activity without transition
                         startActivity(Intent(this, ProfileActivity::class.java))
+
+                        // Set the appropriate field in array to true
+                        this.transitionMade[indexOfActivity] = true
                     }
                 }.start()
             }
@@ -600,13 +609,13 @@ class HomeActivity : AppCompatActivity() {
                     runOnUiThread {
                         // Start the card deck activity without transition
                         startActivity(Intent(this, ProfileActivity::class.java))
+
+                        // Set the appropriate field in array to true
+                        this.transitionMade[indexOfActivity] = true
                     }
                 }.start()
             }
         }
-
-        // Set the appropriate field in array to true
-        this.transitionMade[indexOfActivity] = true
     }
 
     /**

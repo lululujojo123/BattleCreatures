@@ -40,11 +40,12 @@
             android:id="@+id/rectangleBackgroundImageView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_marginTop="74.5dp"
             android:contentDescription="@null"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/triangleBackgroundImageView"
+            app:layout_constraintTop_toTopOf="@+id/triangleBackgroundImageView"
             app:srcCompat="@drawable/home_background_rectangle"
             app:tint="@color/brown_200" />
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -73,11 +74,12 @@
             android:id="@+id/rectangleBackgroundImageView2"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_marginTop="74.5dp"
             android:contentDescription="@null"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/triangleBackgroundImageView2"
+            app:layout_constraintTop_toTopOf="@+id/triangleBackgroundImageView2"
             app:srcCompat="@drawable/home_background_rectangle"
             app:tint="@color/yellow_200" />
     </androidx.constraintlayout.widget.ConstraintLayout>
