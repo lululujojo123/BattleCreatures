@@ -4,7 +4,7 @@
  *  ProfileActivity.kt
  *
  *  created by: Lara B.
- *  last edit \ by: 2021/01/27 \ Lara B.
+ *  last edit \ by: 2021/01/28 \ Lara B.
  */
 
 package org.battlecreatures.activities
@@ -90,7 +90,7 @@ class ProfileActivity : AppCompatActivity() {
 
         // Set the onClickListener for the back button
         backButton.setOnClickListener {
-            // back to home activity
+            animateScreenOut()
             onBackPressed()
         }
     }
@@ -142,6 +142,36 @@ class ProfileActivity : AppCompatActivity() {
         neededExpTextView.startAnimation(screenAnimation)
         neededExpTextView1.startAnimation(screenAnimation)
         neededExpTextView2.startAnimation(screenAnimation)
+    }
+
+    /**
+     * Private method preparing and starting the animation before onBackPressed
+     */
+    private fun animateScreenOut() {
+        val backButton : ImageView = findViewById(R.id.backButton)
+        val changeNameButton : ImageView = findViewById(R.id.changeNameButton)
+        val playerNameTextView : TextView = findViewById(R.id.playerNameTextView)
+        val currentLevelTextView : TextView = findViewById(R.id.currentLevel)
+        val nextLevelTextView : TextView = findViewById(R.id.nextLevel)
+        val neededExpTextView : TextView = findViewById(R.id.neededExp)
+        val neededExpTextView1 : TextView = findViewById(R.id.neededExp1)
+        val neededExpTextView2 : TextView = findViewById(R.id.neededExp2)
+
+        // Prepare the screen animation
+        val screenOutAnimation: Animation = AnimationUtils.loadAnimation(this,
+            R.anim.shield_out_animation
+        )
+        screenOutAnimation.duration = 1000
+
+        // Start the animation
+        backButton.startAnimation(screenOutAnimation)
+        changeNameButton.startAnimation(screenOutAnimation)
+        playerNameTextView.startAnimation(screenOutAnimation)
+        currentLevelTextView.startAnimation(screenOutAnimation)
+        nextLevelTextView.startAnimation(screenOutAnimation)
+        neededExpTextView.startAnimation(screenOutAnimation)
+        neededExpTextView1.startAnimation(screenOutAnimation)
+        neededExpTextView2.startAnimation(screenOutAnimation)
     }
 
     /**
