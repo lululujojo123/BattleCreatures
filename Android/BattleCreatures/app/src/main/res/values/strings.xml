@@ -39,6 +39,24 @@
     <string name="qr_result_invalid">This QR-Code doesn\'t match any of the playable cards</string>
     <string name="card_successfully_added">The card % was added successfully.</string>
 
+    <string name="new_game">Start New Game</string>
+    <string name="won">Won</string>
+    <string name="lost">Lost</string>
+    <string name="how_many_cards">Against how many cards did you win?</string>
+    <string name="continue_btn">Continue</string>
+    <string name="earned_exp_1">You earned</string>
+    <string name="earned_exp_2">Exp !</string>
+    <string name="no_earned_exp">You didnt earn any Exp this time.</string>
+
+    <!-- Variable names for different languages -->
+    <string name="card_name_field_name">name</string>
+    <string name="card_image_url_field_name">imageURL</string>
+
+    <string name="edit_name_hint">Please enter a name</string>
+    <string name ="needed_exp_1">You need</string>
+    <string name ="needed_exp_2">Exp to reach the next level</string>
+    <string name ="wrong_name_length">Please enter a name with 1 to 10 characters!</string>
+
     <!-- Variable names for different languages -->
     <string name="card_name_field_name">name</string>
     <string name="card_image_url_field_name">imageURL</string>

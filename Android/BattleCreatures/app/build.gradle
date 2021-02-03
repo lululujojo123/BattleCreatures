@@ -4,7 +4,7 @@
  * build.gradle
  *
  * created by: Andreas G.
- * last edit \ by: 2021/01/31 \ Andreas G.
+ * last edit \ by: 2021/02/03 \ Andreas G.
  */
 
 plugins {
@@ -69,4 +69,7 @@ dependencies {
 
     // Recycler bounce effect
     implementation 'androidx.dynamicanimation:dynamicanimation:1.0.0'
+    
+    //Espresso Test
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 }
