@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~ Copyright (c) 2020 lululujojo123
+  ~ Copyright (c) 2021 lululujojo123
   ~
   ~ colors.xml
   ~
   ~ created by: Andreas G.
-  ~ last edit \ by: 2020/12/25 \ Andreas G.
+  ~ last edit \ by: 2021/02/03 \ Andreas G.
   -->
 
 <resources>
@@ -21,4 +21,5 @@
     <color name="purple_700">#3036B0</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="transparent">#00000000</color>
 </resources>

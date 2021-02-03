@@ -1,4 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2021 lululujojo123
+  ~
+  ~ AndroidManifest.xml
+  ~
+  ~ created by: Andreas G.
+  ~ last edit \ by: 2021/02/03 \ Andreas G.
+  -->
+
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.battlecreatures">
 
@@ -17,7 +26,27 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.BattleCreatures.NoActionBar">
-        <activity android:name=".activities.GameActivity"></activity>
+        <activity 
+            android:name=".activities.GameActivity"
+            android:permission="org.battlecreatures.RUN_ACTIVITIES"
+            android:resizeableActivity="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.CardDetailActivity"
+            android:permission="org.battlecreatures.RUN_ACTIVITIES"
+            android:resizeableActivity="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.BattleCreatures.NoActionBarTranslucent" />
+        <activity
+            android:name=".activities.CardScanActivity"
+            android:permission="org.battlecreatures.RUN_ACTIVITIES"
+            android:resizeableActivity="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.CardDeckActivity"
+            android:permission="org.battlecreatures.RUN_ACTIVITIES"
+            android:resizeableActivity="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activities.HomeActivity"
             android:permission="org.battlecreatures.RUN_ACTIVITIES"

@@ -1,10 +1,10 @@
 <!--
-  ~ Copyright (c) 2020 lululujojo123
+  ~ Copyright (c) 2021 lululujojo123
   ~
   ~ strings.xml
   ~
   ~ created by: Andreas G.
-  ~ last edit \ by: 2021/01/14 \ Andreas G.
+  ~ last edit \ by: 2021/02/03 \ Andreas G.
   -->
 
 <resources>
@@ -33,6 +33,11 @@
     <string name="player_level_init_value">0</string>
     <string name="btn_start_game_title">Start game</string>
     <string name="btn_card_deck">Cards</string>
+    <string name="btn_card_scan">Scan a card</string>
+    <string name="btn_back">Back</string>
+    <string name="qr_scan_failed">Card scan wasn\'t successful. Please try again. Internet connection is required.</string>
+    <string name="qr_result_invalid">This QR-Code doesn\'t match any of the playable cards</string>
+    <string name="card_successfully_added">The card % was added successfully.</string>
 
     <string name="new_game">Start New Game</string>
     <string name="won">Won</string>
@@ -60,4 +65,5 @@
     <string name="application_shared_preferences" translatable="false">org.battlecreatures.appSharedPref</string>
     <string name="sp_value_tutorial_completed" translatable="false">org.battlecreatures.appSharedPref.tutorialCompleted</string>
     <string name="db_name" translatable="false">db_battlecreatures</string>
+    <string name="card_id_intent_extra" translatable="false">card_id</string>
 </resources>

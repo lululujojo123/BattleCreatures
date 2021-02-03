@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~ Copyright (c) 2020 lululujojo123
+  ~ Copyright (c) 2021 lululujojo123
   ~
   ~ strings.xml
   ~
   ~ created by: Andreas G.
-  ~ last edit \ by: 2020/12/29 \ Andreas G.
+  ~ last edit \ by: 2021/02/03 \ Andreas G.
   -->
 
 <resources>
@@ -30,6 +30,13 @@
     <string name="no">Nein</string>
     <string name="player_level_background">SpielerLevelHintergrund</string>
     <string name="player_level_init_value">0</string>
+    <string name="btn_start_game_title">Spiel starten</string>
+    <string name="btn_card_deck">Karten</string>
+    <string name="btn_card_scan">Scanne eine Karte</string>
+    <string name="btn_back">Zurück</string>
+    <string name="qr_scan_failed">Das Scannen der Karte schlug fehl. Bitte versuche es erneut. Eine Internetverbindung ist erforderlich.</string>
+    <string name="qr_result_invalid">Dieser QR-Code passt zu keiner der spielbaren Karten.</string>
+    <string name="card_successfully_added">Die Karte % wurde erfolgreich hinzugefügt.</string>
 
     <string name="edit_name_hint">Gib einen Namen ein</string>
     <string name ="needed_exp_1">Du brauchst noch</string>
