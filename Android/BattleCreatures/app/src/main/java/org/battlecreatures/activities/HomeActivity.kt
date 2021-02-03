@@ -571,7 +571,7 @@ class HomeActivity : AppCompatActivity() {
 
                     runOnUiThread {
                         // Start the game activity without transition
-                        startActivity(Intent(this, ProfileActivity::class.java))
+                        startActivity(Intent(this, GameActivity::class.java))
 
                         // Set the appropriate field in array to true
                         this.transitionMade[indexOfActivity] = true
