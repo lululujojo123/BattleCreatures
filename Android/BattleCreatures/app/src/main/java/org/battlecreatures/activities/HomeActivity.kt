@@ -1,40 +1,34 @@
 /*
- * Copyright (c) 2021 lululujojo123
+ * Copyright (c) 2020 lululujojo123
  *
  * HomeActivity.kt
  *
  * created by: Andreas G.
- * last edit \ by: 2021/01/27 \ Andreas G.
+ * last edit \ by: 2020/12/29 \ Andreas G.
  */
 
 package org.battlecreatures.activities
 
-import android.annotation.SuppressLint
 import android.content.DialogInterface
 import android.content.Intent
-import android.content.res.Resources
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.MotionEvent
-import android.view.View
-import android.view.animation.Animation
-import android.view.animation.AnimationUtils
+import android.widget.Button
+import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextSwitcher
 import androidx.appcompat.app.AlertDialog
-import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.Group
 import org.battlecreatures.R
 import org.battlecreatures.animations.ProgressBarAnimation
 import org.battlecreatures.logics.database.BCDatabase
-import org.battlecreatures.logics.database.PlayerDAO
-import org.battlecreatures.logics.entities.Player
 import kotlin.system.exitProcess
 
 /**
  * The home activity providing the main entrance point to the game and other functions
  */
 class HomeActivity : AppCompatActivity() {
-    companion object {
+    companion object{
         /**
          * Static constant with the class name for logging purposes
          */
@@ -44,58 +38,12 @@ class HomeActivity : AppCompatActivity() {
     /**
      * Private field buffering the last level the player had when visiting this screen
      */
-    private var lastPlayerLevelBuffer: Long = 0L
+    private var lastPlayerLevelBuffer: Int = 0
 
     /**
-     * Private field buffering the last progress of exp points the player needed when visiting this screen
+     * Private field buffering the last exp points the player had when visiting this screen
      */
-    private var lastPlayerExpProgressBuffer: Long = 0L
-
-    /**
-     * Private field storing the information whether the activity was called the first time or not
-     */
-    private var firstInit = true
-
-    /**
-     * Private field storing the offset to start the player level progress animation
-     */
-    private var levelProgressDelay = 0L
-
-    /**
-     * Private array storing to which activity the user has navigated
-     *
-     * 0: ProfileActivity
-     *
-     * 1: GameActivity
-     *
-     * 2: CardDeckActivity
-     */
-    private val transitionMade = booleanArrayOf(false, false, false)
-
-    /**
-     * Private field storing the fade animation object for the player button
-     */
-    private lateinit var fadeAnimationPlayer: Animation
-
-    /**
-     * Private field storing the fade animation object for the game button
-     */
-    private lateinit var fadeAnimationGame: Animation
-
-    /**
-     * Private field storing the fade animation object for the cards button
-     */
-    private lateinit var fadeAnimationCards: Animation
-
-    /**
-     * Private field storing the swipe animation object for the first background object
-     */
-    private lateinit var swipeBackgroundAnimation: Animation
-
-    /**
-     * Private field storing the swipe animation object for the second background object
-     */
-    private var swipeBackgroundAnimation2: Animation? = null
+    private var lastPlayerExpBuffer: Long = 0
 
     /**
      * Android related onCreate method preparing all the views from xml file
@@ -106,109 +54,61 @@ class HomeActivity : AppCompatActivity() {
         // Super classes onCreate method
         super.onCreate(savedInstanceState)
 
-        // Initializing the context by using the activity_home.xml
+        // Loading the layout from xml file
         setContentView(R.layout.activity_home)
 
-        // Make the background images height high enough
-        findViewById<ConstraintLayout>(R.id.homeBackgroundGroup).layoutParams.height = Resources.getSystem().displayMetrics.heightPixels + 600
-        findViewById<ConstraintLayout>(R.id.homeBackgroundGroup2).layoutParams.height = Resources.getSystem().displayMetrics.heightPixels + 600
+        val bcDatabase = BCDatabase.getMainThreadBCDatabase(applicationContext)
+        val playerDAO = bcDatabase.playerDao()
+        val ownProfile = playerDAO.getOwnProfile()
 
-        // Set the onClickListener for player button
-        findViewById<ConstraintLayout>(R.id.playerLevelGroup).setOnClickListener {
-            // Make all buttons not clickable
-            this.setClickableAndOnTouchForAllViews(false)
+        val textSwitcher = findViewById<TextSwitcher>(R.id.currentLevelTextSwitcher)
+        textSwitcher.setCurrentText(ownProfile.getLevel().toString())
 
-            // Do the transition animation
-            this.doTransition(0)
+        val progressBar = findViewById<ProgressBar>(R.id.playerLevelProgressBar)
+        var progressBarAnimation = ProgressBarAnimation(
+            progressBar, progressBar.progress.toFloat(),
+            (100 - ownProfile.getExpForNextLevel().toInt()).toFloat()
+        )
+        progressBarAnimation.duration = 1000
+        progressBar.startAnimation(progressBarAnimation)
+
+        bcDatabase.close()
+
+        findViewById<Button>(R.id.testButton).setOnClickListener {
+            it.isClickable = false
+
+            val bcDatabase = BCDatabase.getMainThreadBCDatabase(applicationContext)
+            val playerDAO = bcDatabase.playerDao()
+            val ownProfile = playerDAO.getOwnProfile()
+
+            ownProfile.exp += 25
+
+            textSwitcher.setText(ownProfile.getLevel().toString())
+
+            progressBarAnimation = ProgressBarAnimation(
+                progressBar, progressBar.progress.toFloat(),
+                (100 - ownProfile.getExpForNextLevel().toInt()).toFloat()
+            )
+            progressBarAnimation.duration = 1000
+            progressBar.startAnimation(progressBarAnimation)
+
+            playerDAO.updatePlayer(ownProfile)
+            bcDatabase.close()
+
+            it.isClickable = true
         }
 
-        // Set the onClickListener for game button
-        findViewById<ConstraintLayout>(R.id.startGameGroup).setOnClickListener {
-            // Make all buttons not clickable
-            this.setClickableAndOnTouchForAllViews(false)
-
-            // Do the transition animation
-            this.doTransition(1)
+        //start Profile Activity for testing
+        findViewById<ImageView>(R.id.playerLevelBackground).setOnClickListener {
+            val myIntent = Intent(this@HomeActivity, ProfileActivity::class.java)
+            this@HomeActivity.startActivity(myIntent)
         }
-
-        // Set the onClickListener for card deck button
-        findViewById<ConstraintLayout>(R.id.cardDeckGroup).setOnClickListener {
-            // Make all buttons not clickable
-            this.setClickableAndOnTouchForAllViews(false)
-
-            // Do the transition animation
-            this.doTransition(2)
-        }
-
-        // Make all buttons not clickable while animation is pending
-        this.setClickableAndOnTouchForAllViews(false)
-
-        // Init animation
-        this.animateScreen()
-    }
-
-    /**
-     * Android related onResume method refreshing the views according to the pending
-     * changes within the data set and the current animation state.
-     */
-    override fun onResume() {
-        // Super classes onResume method
-        super.onResume()
-
-        // Reverting all the transitions if required
-        this.revertTransition()
-
-        // Refreshing the level progress bar
-        this.refreshLevelProgress()
-
-        // Make all buttons clickable again and reset opacity
-        Thread {
-            do {
-                Thread.sleep(1)
-            } while(!this.fadeAnimationCards.hasStarted())
-
-            do {
-                Thread.sleep(1)
-            } while (!this.fadeAnimationCards.hasEnded())
-
-            runOnUiThread {
-                this.setClickableAndOnTouchForAllViews(true)
-            }
-        }.start()
-
-        // Try to garbage collect the unnecessary closed activities
-        Runtime.getRuntime().gc()
-    }
-
-    /**
-     * Android related onDestroy method cleaning all the objects
-     * and starting the garbage collector
-     */
-    override fun onDestroy() {
-        // Super classes onDestroy method
-        super.onDestroy()
-
-        // Do cleanup for onClick listeners
-        findViewById<ConstraintLayout>(R.id.playerLevelGroup).setOnClickListener(null)
-        findViewById<ConstraintLayout>(R.id.startGameGroup).setOnClickListener(null)
-        findViewById<ConstraintLayout>(R.id.cardDeckGroup).setOnClickListener(null)
-
-        // Do cleanup for onTouch listeners
-        this.setClickableAndOnTouchForAllViews(false)
-
-        // Try to garbage collect
-        Runtime.getRuntime().gc()
     }
 
     /**
      * Android related onBackPressed method for overriding the normal back button functionality
      */
     override fun onBackPressed() {
-        // Don't show the application close dialog while animation
-        if (this.swipeBackgroundAnimation2 != null && !this.swipeBackgroundAnimation2!!.hasEnded()) {
-            return
-        }
-
         // Creating the onClickListener for the AlertDialog
         val dialogClickListener: DialogInterface.OnClickListener = DialogInterface.OnClickListener { _: DialogInterface, which: Int ->
             when (which) {
@@ -225,9 +125,12 @@ class HomeActivity : AppCompatActivity() {
 
         // Creating the alert dialog builder
         val builder: AlertDialog.Builder = AlertDialog.Builder(this)
-        builder.setMessage(getString(R.string.dialog_exit_application_text)).setPositiveButton(getString(R.string.yes), dialogClickListener)
-                .setNegativeButton(getString(R.string.no), dialogClickListener)
-                .setCancelable(false)
+        builder.setMessage(getString(R.string.dialog_exit_application_text)).setPositiveButton(
+            getString(
+                R.string.yes
+            ), dialogClickListener
+        )
+            .setNegativeButton(getString(R.string.no), dialogClickListener)
 
         // Creating the alert dialog object and disable the touch event while touching outside of the dialog
         val alert: AlertDialog = builder.create()

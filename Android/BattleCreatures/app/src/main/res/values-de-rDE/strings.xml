@@ -5,7 +5,7 @@
   ~ strings.xml
   ~
   ~ created by: Andreas G.
-  ~ last edit \ by: 2021/01/14 \ Andreas G.
+  ~ last edit \ by: 2020/12/29 \ Andreas G.
   -->
 
 <resources>
@@ -26,14 +26,15 @@
     </string>
     <string name="allow_permissions_tutorial_title">ErlaubeZugriff</string>
     <string name="dialog_exit_application_text">Möchtest du die Anwendung verlassen?</string>
-    <string name="dialog_error_api_fetching">Die Synchronisierung mit der API schlug fehl. Die Anwendung versucht die aktuellsten verfügbaren Daten zu verwenden. Es könnte aber zu Problemen bei der Ausführung kommen. Prüfe bitte deine Internetverbindung und starte die App neu.</string>
     <string name="yes">Ja</string>
     <string name="no">Nein</string>
-    <string name="ok">Ok</string>
     <string name="player_level_background">SpielerLevelHintergrund</string>
     <string name="player_level_init_value">0</string>
-    <string name="btn_start_game_title">Spiel starten</string>
-    <string name="btn_card_deck">Karten</string>
+
+    <string name="edit_name_hint">Gib einen Namen ein</string>
+    <string name ="needed_exp_1">Du brauchst noch</string>
+    <string name ="needed_exp_2">Exp für den nächsten Level</string>
+    <string name ="wrong_name_length">Bitte gib einen Namen mit 1 bis 10 Zeichen ein!</string>
 
     <string name="new_game">Neues Spiel</string>
     <string name="won">Gewonnen</string>

@@ -47,6 +47,15 @@
     <string name="card_name_field_name">name</string>
     <string name="card_image_url_field_name">imageURL</string>
 
+    <string name="edit_name_hint">Please enter a name</string>
+    <string name ="needed_exp_1">You need</string>
+    <string name ="needed_exp_2">Exp to reach the next level</string>
+    <string name ="wrong_name_length">Please enter a name with 1 to 10 characters!</string>
+
+    <!-- Variable names for different languages -->
+    <string name="card_name_field_name">name</string>
+    <string name="card_image_url_field_name">imageURL</string>
+
     <!-- !!! DO NOT TRANSLATE !!! -->
     <string name="application_shared_preferences" translatable="false">org.battlecreatures.appSharedPref</string>
     <string name="sp_value_tutorial_completed" translatable="false">org.battlecreatures.appSharedPref.tutorialCompleted</string>
