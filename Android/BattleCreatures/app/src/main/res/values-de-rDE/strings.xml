@@ -35,4 +35,8 @@
     <string name ="needed_exp_1">Du brauchst noch</string>
     <string name ="needed_exp_2">Exp für den nächsten Level</string>
     <string name ="wrong_name_length">Bitte gib einen Namen mit 1 bis 10 Zeichen ein!</string>
+
+    <!-- Variable names for different languages -->
+    <string name="card_name_field_name">name_de</string>
+    <string name="card_image_url_field_name">imageURL_de</string>
 </resources>

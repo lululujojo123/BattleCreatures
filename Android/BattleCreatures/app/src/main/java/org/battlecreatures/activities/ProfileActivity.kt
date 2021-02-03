@@ -32,6 +32,11 @@ class ProfileActivity : AppCompatActivity() {
     }
 
     /**
+     * Private field for the screenOutAnimation
+     */
+    private var screenOutAnimation: Animation ?= null
+
+    /**
      * Android related onCreate method
      */
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -72,7 +77,8 @@ class ProfileActivity : AppCompatActivity() {
 
             // The name length has to be between 1 and 10
             if (playerNameEditText.length() in 1..10) {
-                ownProfile.name = playerNameEditText.text.toString()
+                ownProfile!!.name = playerNameEditText.text.toString()
+                // Set new name
                 playerDAO.updatePlayer(Player(ownProfile.id, ownProfile.exp, ownProfile.name))
                 playerNameTextView.text = ownProfile.name
 
@@ -82,7 +88,7 @@ class ProfileActivity : AppCompatActivity() {
                 playerNameTextView.visibility = View.VISIBLE
                 changeNameButton.isClickable = true
             } else {
-                // name is too short or too long
+                // Warning message if the name is too long or too short
                 Toast.makeText(this, getString(R.string.wrong_name_length), Toast.LENGTH_LONG).show()
                 confirmNameButton.isClickable = true
             }
@@ -90,10 +96,27 @@ class ProfileActivity : AppCompatActivity() {
 
         // Set the onClickListener for the back button
         backButton.setOnClickListener {
-            animateScreenOut()
-            // back to home activity
+            // Back to home activity
             onBackPressed()
         }
+    }
+
+    /**
+     * Android related onBackPressed method
+     */
+    override fun onBackPressed() {
+        // Animate the screen before going back to home sctivity
+        animateScreenOut()
+        Thread{
+            if(this.screenOutAnimation != null) {
+                while(!this.screenOutAnimation!!.hasEnded()) {
+                    Thread.sleep(1)
+                }
+            }
+            runOnUiThread{
+                super.onBackPressed()
+            }
+        }.start()
     }
 
     /**
@@ -109,7 +132,8 @@ class ProfileActivity : AppCompatActivity() {
         val playerDAO = bcDatabase.playerDao()
         val ownProfile = playerDAO.getOwnProfile()
 
-        playerNameTextView.text = ownProfile.name
+        // Set textview content
+        playerNameTextView.text = ownProfile!!.name
         currentLevelTextView.text = ownProfile.getLevel().toString()
         nextLevelTextView.text = (ownProfile.getLevel() + 1).toString()
         neededExpTextView.text = ownProfile.getExpForNextLevel().toString()
@@ -127,10 +151,11 @@ class ProfileActivity : AppCompatActivity() {
         val neededExpTextView : TextView = findViewById(R.id.neededExp)
         val neededExpTextView1 : TextView = findViewById(R.id.neededExp1)
         val neededExpTextView2 : TextView = findViewById(R.id.neededExp2)
+        val progressBar : ProgressBar = findViewById(R.id.expProgressBar)
 
         // Prepare the screen animation
         val screenAnimation: Animation = AnimationUtils.loadAnimation(this,
-            R.anim.shield_animation
+                R.anim.shield_animation
         )
         screenAnimation.duration = 1000
 
@@ -143,6 +168,7 @@ class ProfileActivity : AppCompatActivity() {
         neededExpTextView.startAnimation(screenAnimation)
         neededExpTextView1.startAnimation(screenAnimation)
         neededExpTextView2.startAnimation(screenAnimation)
+        progressBar.startAnimation(screenAnimation)
     }
 
     /**
@@ -157,22 +183,44 @@ class ProfileActivity : AppCompatActivity() {
         val neededExpTextView : TextView = findViewById(R.id.neededExp)
         val neededExpTextView1 : TextView = findViewById(R.id.neededExp1)
         val neededExpTextView2 : TextView = findViewById(R.id.neededExp2)
+        val progressBar : ProgressBar = findViewById(R.id.expProgressBar)
 
         // Prepare the screen animation
-        val screenOutAnimation: Animation = AnimationUtils.loadAnimation(this,
-            R.anim.shield_out_animation
+        this.screenOutAnimation = AnimationUtils.loadAnimation(this,
+                R.anim.shield_out_animation
         )
-        screenOutAnimation.duration = 1000
+        this.screenOutAnimation!!.duration = 1000
 
         // Start the animation
-        backButton.startAnimation(screenOutAnimation)
-        changeNameButton.startAnimation(screenOutAnimation)
-        playerNameTextView.startAnimation(screenOutAnimation)
-        currentLevelTextView.startAnimation(screenOutAnimation)
-        nextLevelTextView.startAnimation(screenOutAnimation)
-        neededExpTextView.startAnimation(screenOutAnimation)
-        neededExpTextView1.startAnimation(screenOutAnimation)
-        neededExpTextView2.startAnimation(screenOutAnimation)
+        backButton.startAnimation(this.screenOutAnimation!!)
+        changeNameButton.startAnimation(this.screenOutAnimation!!)
+        playerNameTextView.startAnimation(this.screenOutAnimation!!)
+        currentLevelTextView.startAnimation(this.screenOutAnimation!!)
+        nextLevelTextView.startAnimation(this.screenOutAnimation!!)
+        neededExpTextView.startAnimation(this.screenOutAnimation!!)
+        neededExpTextView1.startAnimation(this.screenOutAnimation!!)
+        neededExpTextView2.startAnimation(this.screenOutAnimation!!)
+        progressBar.startAnimation(this.screenOutAnimation!!)
+
+        Thread{
+            if(this.screenOutAnimation != null) {
+                do {
+                    Thread.sleep(1)
+                } while (!this.screenOutAnimation!!.hasEnded())
+            }
+            runOnUiThread{
+                // Set the opacity of all views to 0
+                backButton.alpha = 0f
+                changeNameButton.alpha = 0f
+                playerNameTextView.alpha = 0f
+                currentLevelTextView.alpha = 0f
+                nextLevelTextView.alpha = 0f
+                neededExpTextView.alpha = 0f
+                neededExpTextView1.alpha = 0f
+                neededExpTextView2.alpha = 0f
+                progressBar.alpha = 0f
+            }
+        }.start()
     }
 
     /**
@@ -186,8 +234,9 @@ class ProfileActivity : AppCompatActivity() {
 
         // Prepare and start the progress bar animation
         expProgressBar.progress = 0
-        expProgressBar.animation = ProgressBarAnimation(expProgressBar, expProgressBar.progress.toFloat(), ownProfile.getExpProgress().toFloat())
+        expProgressBar.animation = ProgressBarAnimation(expProgressBar, expProgressBar.progress.toFloat(), ownProfile!!.getExpProgress().toFloat())
         expProgressBar.animation.duration = 1000
+        expProgressBar.animation.startOffset = 500
         expProgressBar.animation.setInterpolator(this, android.R.interpolator.decelerate_cubic)
         expProgressBar.animate()
 
