@@ -4,12 +4,13 @@
  * CardCustomView.kt
  *
  * created by: Andreas G.
- * last edit \ by: 2021/01/30 \ Andreas G.
+ * last edit \ by: 2021/02/03 \ Andreas G.
  */
 
 package org.battlecreatures.views
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.ColorMatrix
 import android.graphics.ColorMatrixColorFilter
 import android.util.AttributeSet
@@ -20,6 +21,8 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import com.bumptech.glide.GenericTransitionOptions
 import com.bumptech.glide.Glide
 import org.battlecreatures.R
+import org.battlecreatures.activities.CardDeckActivity
+import org.battlecreatures.activities.CardDetailActivity
 import org.battlecreatures.logics.entities.Card
 
 /**
@@ -70,6 +73,11 @@ class CardCustomView : ConstraintLayout {
         }
 
     /**
+     * The image view with the card's image.
+     */
+    val imageView: ImageView
+
+    /**
      * Property storing the position of the current card in the recycler view
      */
     var position: Int = -1
@@ -95,5 +103,22 @@ class CardCustomView : ConstraintLayout {
     constructor(context: Context, attrs: AttributeSet?,defStyleAttr: Int, defStyleRes: Int): super(context, attrs, defStyleAttr, defStyleRes) {
         // Inflate the card custom view layout file
         inflate(context, R.layout.custom_view_card, this)
+
+        // Storing the ImageView object for further use
+        this.imageView = findViewById(R.id.cardFrontImage)
+
+        // Set the onClickListener for the imageView
+        this.imageView.setOnClickListener {
+            // Only run code if still clickable
+            if (it.isClickable) {
+                // Make all the CardDeck views not clickable
+                (context as CardDeckActivity).setClickableAndOnTouchForAllViews(false)
+
+                // Start the CardDetailActivity with card id
+                val intent = Intent(context, CardDetailActivity::class.java)
+                intent.putExtra(context.getString(R.string.card_id_intent_extra), card!!.id)
+                context.startActivity(intent)
+            }
+        }
     }
 }

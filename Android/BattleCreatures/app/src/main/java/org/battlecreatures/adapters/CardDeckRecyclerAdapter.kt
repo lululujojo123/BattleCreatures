@@ -4,7 +4,7 @@
  * CardDeckRecyclerAdapter.kt
  *
  * created by: Andreas G.
- * last edit \ by: 2021/02/01 \ Andreas G.
+ * last edit \ by: 2021/02/03 \ Andreas G.
  */
 
 package org.battlecreatures.adapters

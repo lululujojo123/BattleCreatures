@@ -1,10 +1,10 @@
 <!--
-  ~ Copyright (c) 2020 lululujojo123
+  ~ Copyright (c) 2021 lululujojo123
   ~
   ~ strings.xml
   ~
   ~ created by: Andreas G.
-  ~ last edit \ by: 2021/01/14 \ Andreas G.
+  ~ last edit \ by: 2021/02/03 \ Andreas G.
   -->
 
 <resources>
@@ -47,4 +47,5 @@
     <string name="application_shared_preferences" translatable="false">org.battlecreatures.appSharedPref</string>
     <string name="sp_value_tutorial_completed" translatable="false">org.battlecreatures.appSharedPref.tutorialCompleted</string>
     <string name="db_name" translatable="false">db_battlecreatures</string>
+    <string name="card_id_intent_extra" translatable="false">card_id</string>
 </resources>
