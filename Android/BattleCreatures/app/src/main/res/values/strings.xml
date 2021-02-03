@@ -34,6 +34,15 @@
     <string name="btn_start_game_title">Start game</string>
     <string name="btn_card_deck">Cards</string>
 
+    <string name="new_game">Start New Game</string>
+    <string name="won">Won</string>
+    <string name="lost">Lost</string>
+    <string name="how_many_cards">Against how many cards did you win?</string>
+    <string name="continue_btn">Continue</string>
+    <string name="earned_exp_1">You earned</string>
+    <string name="earned_exp_2">Exp !</string>
+    <string name="no_earned_exp">You didnt earn any Exp this time.</string>
+
     <!-- Variable names for different languages -->
     <string name="card_name_field_name">name</string>
     <string name="card_image_url_field_name">imageURL</string>

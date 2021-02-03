@@ -1,12 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-  ~ Copyright (c) 2020 lululujojo123
-  ~
-  ~ AndroidManifest.xml
-  ~
-  ~ created by: Andreas G.
-  ~ last edit \ by: 2020/12/31 \ Lara B.
-  -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.battlecreatures">
 
@@ -25,6 +17,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.BattleCreatures.NoActionBar">
+        <activity android:name=".activities.GameActivity"></activity>
         <activity
             android:name=".activities.HomeActivity"
             android:permission="org.battlecreatures.RUN_ACTIVITIES"
