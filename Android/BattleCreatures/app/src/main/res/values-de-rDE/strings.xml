@@ -26,8 +26,10 @@
     </string>
     <string name="allow_permissions_tutorial_title">ErlaubeZugriff</string>
     <string name="dialog_exit_application_text">Möchtest du die Anwendung verlassen?</string>
+    <string name="dialog_error_api_fetching">Die Synchronisierung mit der API ist fehlgeschlagen. Die App wird die aktuellsten verfügbaren Daten verwenden. Es könnte jedoch zu Problemen bei der Nutzung der App kommen. Bitte überprüfe deine Internetverbindung und starte die App neu.</string>
     <string name="yes">Ja</string>
     <string name="no">Nein</string>
+    <string name="ok">Ok</string>
     <string name="player_level_background">SpielerLevelHintergrund</string>
     <string name="player_level_init_value">0</string>
     <string name="btn_start_game_title">Spiel starten</string>

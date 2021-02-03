@@ -48,10 +48,6 @@
     <string name="earned_exp_2">Exp !</string>
     <string name="no_earned_exp">You didnt earn any Exp this time.</string>
 
-    <!-- Variable names for different languages -->
-    <string name="card_name_field_name">name</string>
-    <string name="card_image_url_field_name">imageURL</string>
-
     <string name="edit_name_hint">Please enter a name</string>
     <string name ="needed_exp_1">You need</string>
     <string name ="needed_exp_2">Exp to reach the next level</string>
