@@ -34,6 +34,11 @@
     <string name="player_level_init_value">0</string>
     <string name="btn_start_game_title">Spiel starten</string>
     <string name="btn_card_deck">Karten</string>
+    <string name="btn_card_scan">Scanne eine Karte</string>
+    <string name="btn_back">Zurück</string>
+    <string name="qr_scan_failed">Das Scannen der Karte schlug fehl. Bitte versuche es erneut. Eine Internetverbindung ist erforderlich.</string>
+    <string name="qr_result_invalid">Dieser QR-Code passt zu keiner der spielbaren Karten.</string>
+    <string name="card_successfully_added">Die Karte % wurde erfolgreich hinzugefügt.</string>
 
     <!-- Variable names for different languages -->
     <string name="card_name_field_name">name_de</string>

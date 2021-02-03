@@ -4,7 +4,7 @@
  * SplashActivity.kt
  *
  * created by: Andreas G.
- * last edit \ by: 2021/01/17 \ Andreas G.
+ * last edit \ by: 2021/01/31 \ Andreas G.
  */
 
 package org.battlecreatures.activities

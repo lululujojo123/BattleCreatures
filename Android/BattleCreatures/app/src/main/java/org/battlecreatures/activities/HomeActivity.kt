@@ -4,7 +4,7 @@
  * HomeActivity.kt
  *
  * created by: Andreas G.
- * last edit \ by: 2021/01/27 \ Andreas G.
+ * last edit \ by: 2021/02/01 \ Andreas G.
  */
 
 package org.battlecreatures.activities
@@ -115,29 +115,38 @@ class HomeActivity : AppCompatActivity() {
 
         // Set the onClickListener for player button
         findViewById<ConstraintLayout>(R.id.playerLevelGroup).setOnClickListener {
-            // Make all buttons not clickable
-            this.setClickableAndOnTouchForAllViews(false)
+            // Do only if view is clickable
+            if (it.isClickable) {
+                // Make all buttons not clickable
+                this.setClickableAndOnTouchForAllViews(false)
 
-            // Do the transition animation
-            this.doTransition(0)
+                // Do the transition animation
+                this.doTransition(0)
+            }
         }
 
         // Set the onClickListener for game button
         findViewById<ConstraintLayout>(R.id.startGameGroup).setOnClickListener {
-            // Make all buttons not clickable
-            this.setClickableAndOnTouchForAllViews(false)
+            // Do only if view is clickable
+            if (it.isClickable) {
+                // Make all buttons not clickable
+                this.setClickableAndOnTouchForAllViews(false)
 
-            // Do the transition animation
-            this.doTransition(1)
+                // Do the transition animation
+                this.doTransition(1)
+            }
         }
 
         // Set the onClickListener for card deck button
         findViewById<ConstraintLayout>(R.id.cardDeckGroup).setOnClickListener {
-            // Make all buttons not clickable
-            this.setClickableAndOnTouchForAllViews(false)
+            // Do only if view is clickable
+            if (it.isClickable) {
+                // Make all buttons not clickable
+                this.setClickableAndOnTouchForAllViews(false)
 
-            // Do the transition animation
-            this.doTransition(2)
+                // Do the transition animation
+                this.doTransition(2)
+            }
         }
 
         // Make all buttons not clickable while animation is pending
@@ -264,15 +273,14 @@ class HomeActivity : AppCompatActivity() {
             textSwitcher.outAnimation = AnimationUtils.loadAnimation(this, R.anim.spin_out)
             textSwitcher.inAnimation = AnimationUtils.loadAnimation(this, R.anim.spin_in)
 
-            // Make buttons not clickable
-            this.setClickableAndOnTouchForAllViews(false)
-
             // For each level up
             for (x: Long in this.lastPlayerLevelBuffer..currentLevel) {
                 if (x == currentLevel || this.firstInit) {
                     // If nothing has changed just jump out of the loop
                     if (this.lastPlayerExpProgressBuffer == currentExpProgress && this.lastPlayerLevelBuffer == currentLevel) {
-                        break
+                        if (currentExpProgress != 0L && currentLevel != 0L) {
+                            break
+                        }
                     }
 
                     // TextSwitcher can only be changed from UI thread
@@ -336,9 +344,6 @@ class HomeActivity : AppCompatActivity() {
             // Update the buffer
             lastPlayerExpProgressBuffer = currentExpProgress
             lastPlayerLevelBuffer = currentLevel
-
-            // Make buttons clickable again
-            this.setClickableAndOnTouchForAllViews(true)
         }.start()
     }
 
@@ -608,7 +613,7 @@ class HomeActivity : AppCompatActivity() {
 
                     runOnUiThread {
                         // Start the card deck activity without transition
-                        startActivity(Intent(this, ProfileActivity::class.java))
+                        startActivity(Intent(this, CardDeckActivity::class.java))
 
                         // Set the appropriate field in array to true
                         this.transitionMade[indexOfActivity] = true
