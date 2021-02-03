@@ -4,7 +4,7 @@
  * CardDAO.kt
  *
  * created by: Andreas G.
- * last edit \ by: 2020/12/31 \ Andreas G.
+ * last edit \ by: 2021/01/01 \ Andreas G.
  */
 
 package org.battlecreatures.logics.database
@@ -31,5 +31,5 @@ interface CardDAO {
     fun getAllCards(): List<Card>
 
     @Query("SELECT * FROM tb_cards WHERE id=:id")
-    fun getCardByID(id: String): Card
+    fun getCardByID(id: String): Card?
 }

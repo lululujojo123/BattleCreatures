@@ -4,7 +4,7 @@
  * Player.kt
  *
  * created by: Andreas G.
- * last edit \ by: 2020/12/31 \ Andreas G.
+ * last edit \ by: 2021/01/04 \ Andreas G.
  */
 
 package org.battlecreatures.logics.entities
@@ -18,6 +18,13 @@ data class Player(
     val id: Int = 0,
     var exp: Long = 0,
     var name: String = "Player")  {
+    companion object{
+        /**
+         * Static constant with the class name for logging purposes
+         */
+        private const val TAG: String = "Player"
+    }
+
     /**
      * Method calculating how much exp are required to reach the next level
      *
