@@ -91,6 +91,7 @@ class ProfileActivity : AppCompatActivity() {
         // Set the onClickListener for the back button
         backButton.setOnClickListener {
             animateScreenOut()
+            // back to home activity
             onBackPressed()
         }
     }
